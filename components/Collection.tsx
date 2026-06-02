@@ -14,10 +14,10 @@ export default function Collection() {
     <section className="band" id="collection">
       <div className="shell">
         <div className="section-head reveal">
-          <span className="section-index">I — On View</span>
+          <span className="section-index">I - On View</span>
           <h2 className="display">The Collection</h2>
           <p className="lede">
-            Selected works from recent commissions. Each plate is presented as it was made —
+            Selected works from recent commissions. Each plate is presented as it was made:
             composed, lit, and printed with intent.
           </p>
         </div>

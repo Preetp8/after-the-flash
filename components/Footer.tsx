@@ -12,6 +12,7 @@ export default function Footer() {
               <a href="#collection">The Collection</a>
               <a href="#work">The Work</a>
               <a href="#gear">The Gear</a>
+              <a href="#pricing">Pricing</a>
               <a href="#commission">Inquire</a>
             </div>
             <div className="col">
@@ -28,7 +29,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="base">
-          <span>© 2025 After the Flash</span>
+          <span>(c) 2025 After the Flash</span>
           <span>Every frame, a work of art</span>
         </div>
       </div>
