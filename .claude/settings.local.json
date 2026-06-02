@@ -8,7 +8,19 @@
       "Bash(npx next *)",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(mv \"C:/Users/Preet/Documents/PhotoVideoVenture/after-the-shot-site\" \"C:/Users/Preet/Documents/PhotoVideoVenture/after-the-flash\" && echo \"Renamed\")",
+      "PowerShell(Rename-Item \"C:\\\\Users\\\\Preet\\\\Documents\\\\PhotoVideoVenture\\\\after-the-shot-site\" \"after-the-flash\")",
+      "Bash(gh repo *)",
+      "Bash(git --version)",
+      "PowerShell(\\(Get-Command gh -ErrorAction SilentlyContinue\\).Source)",
+      "PowerShell(Get-ChildItem \"C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe\" -ErrorAction SilentlyContinue; Get-ChildItem \"$env:LOCALAPPDATA\\\\Programs\\\\gh\\\\gh.exe\" -ErrorAction SilentlyContinue; where.exe gh 2>$null)",
+      "PowerShell(& \"C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe\" --version 2>$null)",
+      "PowerShell(vercel --version 2>$null)",
+      "PowerShell(vercel project rename after-the-shot-site after-the-flash 2>&1)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\Preet\\Documents\\PhotoVideoVenture"
     ]
   }
 }

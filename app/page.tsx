@@ -5,7 +5,6 @@ import TheWork from '@/components/TheWork'
 import Artists from '@/components/Artists'
 import Commission from '@/components/Commission'
 import Footer from '@/components/Footer'
-import TweaksPanel from '@/components/TweaksPanel'
 import ScrollRevealProvider from '@/components/ScrollRevealProvider'
 
 export default function Home() {
@@ -19,7 +18,6 @@ export default function Home() {
       <Artists />
       <Commission />
       <Footer />
-      <TweaksPanel />
     </>
   )
 }

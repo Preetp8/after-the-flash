@@ -188,7 +188,7 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden;
   background: var(--ink);
 }
-.hero .image-slot {
+.hero .photo-frame {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -279,25 +279,16 @@ a { color: inherit; text-decoration: none; }
 section.band { padding-block: var(--section-y); }
 section.alt { background: var(--cream-2); }
 
-/* ---------- image-slot (React component) ---------- */
-.image-slot {
+/* ---------- photo-frame ---------- */
+.photo-frame {
   display: block;
   position: relative;
-  cursor: pointer;
 }
-.image-slot.dragging { outline: 2px solid var(--terra); outline-offset: 2px; }
-.image-slot-label {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.35);
-  pointer-events: none;
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* ---------- The Collection ---------- */
@@ -313,10 +304,10 @@ section.alt { background: var(--cream-2); }
   background: var(--cream);
   padding: 10px;
 }
-.work .frame .image-slot { width: 100%; display: block; }
-.work.tall .frame .image-slot { aspect-ratio: 3 / 4; height: auto; }
-.work.wide .frame .image-slot { aspect-ratio: 4 / 3; height: auto; }
-.work.sq .frame .image-slot { aspect-ratio: 1 / 1; height: auto; }
+.work .frame .photo-frame { width: 100%; display: block; }
+.work.tall .frame .photo-frame { aspect-ratio: 3 / 4; height: auto; }
+.work.wide .frame .photo-frame { aspect-ratio: 4 / 3; height: auto; }
+.work.sq .frame .photo-frame { aspect-ratio: 1 / 1; height: auto; }
 
 .work.w-7 { grid-column: span 7; }
 .work.w-5 { grid-column: span 5; }
@@ -412,7 +403,7 @@ section.alt { background: var(--cream-2); }
 }
 .artist { display: flex; flex-direction: column; gap: 1.1rem; }
 .artist .frame { border: 1px solid var(--line-2); background: var(--cream); padding: 9px; }
-.artist .frame .image-slot { width: 100%; aspect-ratio: 4 / 5; height: auto; display: block; }
+.artist .frame .photo-frame { width: 100%; aspect-ratio: 4 / 5; height: auto; display: block; }
 .artist .who { display: flex; flex-direction: column; gap: 5px; }
 .artist .name { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; line-height: 1; }
 .artist .role {
@@ -565,7 +556,7 @@ form.commission-form { display: grid; grid-template-columns: 1fr 1fr; gap: 2.2re
   text-transform: uppercase;
 }
 
-/* ---------- tweaks toggle button ---------- */
+/* ---------- tweaks toggle button (removed) ---------- */
 .tweaks-toggle {
   position: fixed;
   right: 16px;

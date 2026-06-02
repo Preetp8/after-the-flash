@@ -1,9 +1,9 @@
-import ImageSlot from './ImageSlot'
+import Photo from './Photo'
 
 export default function Hero() {
   return (
     <section className="hero" id="top">
-      <ImageSlot id="hero-plate" tone="211e19" fit="cover" placeholder="Drop the cinematic hero frame" />
+      <Photo src="/images/hero.jpg" alt="Hero" tone="211e19" />
       <div className="tint" />
       <div className="frame-inset" />
       <div className="scroll-cue">Scroll</div>
