@@ -13,11 +13,11 @@ const gear = [
 
 export default function Arsenal() {
   return (
-    <section className="band" id="gear">
+    <section className="band" id="arsenal">
       <div className="shell">
         <div className="section-head reveal">
           <span className="section-index">III — The Gear</span>
-          <h2 className="display">The Gear</h2>
+          <h2 className="display">The Arsenal</h2>
           <p className="lede">Professional grade. Every shoot.</p>
         </div>
 
