@@ -45,8 +45,8 @@ export default function Commission() {
               Commission<br />a Shoot
             </h2>
             <p className="lede">
-              Tell us what you&rsquo;re making. We take on a limited number of commissions each
-              season, and we read every note.
+              Tell us what you&rsquo;re making. We work across Alabama and the Southeast — real
+              estate, events, portraits, and brand content. We read every note.
             </p>
             <div className="contact-meta">
               <div className="item">
@@ -57,11 +57,11 @@ export default function Commission() {
               </div>
               <div className="item">
                 <span className="k">Based</span>
-                <span className="v">Los Angeles &amp; New York</span>
+                <span className="v">Alabama &amp; the Southeast</span>
               </div>
               <div className="item">
-                <span className="k">Hours</span>
-                <span className="v">By appointment</span>
+                <span className="k">Response time</span>
+                <span className="v">Within 24 hours</span>
               </div>
             </div>
           </div>

@@ -11,7 +11,7 @@ export default function Footer() {
               <span className="h">Index</span>
               <a href="#collection">The Collection</a>
               <a href="#work">The Work</a>
-              <a href="#artists">The Artists</a>
+              <a href="#arsenal">The Arsenal</a>
               <a href="#commission">Inquire</a>
             </div>
             <div className="col">
@@ -23,7 +23,7 @@ export default function Footer() {
             <div className="col">
               <span className="h">Studio</span>
               <a href="mailto:hello@aftertheflash.studio">hello@aftertheflash.studio</a>
-              <span>Los Angeles &amp; New York</span>
+              <span>Alabama &amp; the Southeast</span>
             </div>
           </div>
         </div>

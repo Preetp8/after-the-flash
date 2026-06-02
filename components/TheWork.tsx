@@ -2,22 +2,22 @@ const disciplines = [
   {
     no: '01',
     title: 'Real Estate',
-    desc: 'Architectural and interior work that renders space as experience — light, proportion, and stillness.',
+    desc: 'Architectural and interior work that renders space as experience — light, proportion, and stillness. Residential and commercial.',
   },
   {
     no: '02',
     title: 'Events',
-    desc: 'Unobtrusive documentary coverage. The day as it actually felt, kept rather than staged.',
+    desc: 'Unobtrusive documentary coverage. Cultural events, galas, and celebrations — the day as it actually felt.',
   },
   {
     no: '03',
     title: 'Portraits',
-    desc: 'Editorial portraiture for people who would rather not look posed. Character over polish.',
+    desc: "Graduation portraits and personal sessions for people who'd rather not look posed. Character over polish.",
   },
   {
     no: '04',
     title: 'Brand Content',
-    desc: 'Stills and motion for brands with a point of view — considered, restrained, unmistakably theirs.',
+    desc: 'Stills and motion for brands with a point of view. Considered, restrained, unmistakably theirs.',
   },
 ]
 

@@ -395,6 +395,47 @@ section.alt { background: var(--cream-2); }
   .work-row .arrow { display: none; }
 }
 
+/* ---------- The Arsenal ---------- */
+.arsenal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 clamp(2rem, 5vw, 5rem);
+  border-top: 1px solid var(--line);
+}
+.arsenal-item {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: clamp(1rem, 2vw, 2rem);
+  align-items: start;
+  padding: clamp(1.4rem, 2.8vw, 2.2rem) 0;
+  border-bottom: 1px solid var(--line);
+}
+.arsenal-item .no {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--ink-3);
+  font-weight: 600;
+  padding-top: 0.35rem;
+}
+.gear-name {
+  font-family: var(--serif);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  line-height: 1.1;
+  margin: 0 0 0.3rem;
+  letter-spacing: 0.01em;
+}
+.gear-desc {
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0;
+}
+@media (max-width: 880px) {
+  .arsenal-grid { grid-template-columns: 1fr; }
+}
+
 /* ---------- The Artists ---------- */
 .artists {
   display: grid;

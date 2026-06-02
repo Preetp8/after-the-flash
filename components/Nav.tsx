@@ -24,7 +24,7 @@ export default function Nav() {
       <nav className="nav-links">
         <a href="#collection">The Collection</a>
         <a href="#work">The Work</a>
-        <a href="#artists">The Artists</a>
+        <a href="#arsenal">The Arsenal</a>
         <a href="#commission" className="inquire">Inquire</a>
       </nav>
     </header>
