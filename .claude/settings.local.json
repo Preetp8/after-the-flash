@@ -19,7 +19,9 @@
       "PowerShell(vercel --version 2>$null)",
       "PowerShell(vercel project rename after-the-shot-site after-the-flash 2>&1)",
       "Bash(git tag *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" api repos/Preetp8/after-the-flash/collaborators --jq '.[].login')",
+      "Bash(git checkout *)"
     ],
     "additionalDirectories": [
       "C:\\Users\\Preet\\Documents\\PhotoVideoVenture"
