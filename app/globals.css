@@ -13,7 +13,7 @@
   --serif: var(--font-bodoni, "Bodoni Moda"), "Times New Roman", serif;
   --sans:  var(--font-archivo, "Archivo"), system-ui, -apple-system, sans-serif;
 
-  --pad-x: clamp(1.5rem, 5vw, 6rem);
+  --pad-x: clamp(2.5rem, 6vw, 7rem);
   --maxw: 1360px;
   --section-y: clamp(5.5rem, 13vh, 11rem);
 }

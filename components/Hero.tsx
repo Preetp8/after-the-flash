@@ -10,8 +10,7 @@ export default function Hero() {
       <div className="hero-content">
         <p className="eyebrow">After the Flash — Photography &amp; Film</p>
         <h1>
-          Every Frame.<br />
-          A Work of <span className="accent">Art.</span>
+          After the <span className="accent">Flash</span>
         </h1>
         <div className="hero-foot">
           <p>A photography and film studio that treats every commission as a piece worth hanging.</p>
