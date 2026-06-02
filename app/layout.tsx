@@ -18,7 +18,7 @@ const archivo = Archivo({
 })
 
 export const metadata: Metadata = {
-  title: 'After the Flash — Photography & Film',
+  title: 'After the Flash - Photography & Film',
   description:
     'A photography and film studio that treats every commission as a piece worth hanging.',
 }
@@ -26,7 +26,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${bodoniModa.variable} ${archivo.variable}`}>{children}</body>
+      <body className={`${bodoniModa.variable} ${archivo.variable}`} suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   )
 }

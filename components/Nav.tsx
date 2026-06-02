@@ -50,6 +50,7 @@ export default function Nav() {
         <a href="#collection">The Collection</a>
         <a href="#work">The Work</a>
         <a href="#gear">The Gear</a>
+        <a href="#pricing">Pricing</a>
         <a href="#commission" className="inquire">Inquire</a>
       </nav>
     </header>

@@ -1,5 +1,5 @@
 const gear = [
-  { no: '01', name: 'SONY A7V × 2',            desc: 'Primary bodies. Full-frame, low light, uncompromising.' },
+  { no: '01', name: 'SONY A7V x 2',             desc: 'Primary bodies. Full-frame, low light, uncompromising.' },
   { no: '02', name: 'SONY A7III',               desc: 'Backup and second angle.' },
   { no: '03', name: 'SONY A7C',                 desc: 'Compact. Run and gun.' },
   { no: '04', name: 'CANON 5D MK III',          desc: 'Legacy body. Still delivers.' },
@@ -16,7 +16,7 @@ export default function Arsenal() {
     <section className="band" id="gear">
       <div className="shell">
         <div className="section-head reveal">
-          <span className="section-index">III — The Gear</span>
+          <span className="section-index">III - The Gear</span>
           <h2 className="display">The Gear</h2>
           <p className="lede">Professional grade. Every shoot.</p>
         </div>

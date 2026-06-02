@@ -121,7 +121,7 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 25px 1.35rem 1.35rem 40px;
+  padding: clamp(1.75rem, 2.2vw, 2.25rem) clamp(2.1rem, 2.9vw, 3.8rem) 1rem;
   color: var(--cream);
   transition: background .4s ease, color .4s ease, padding .4s ease, border-color .4s ease;
   border-bottom: 1px solid transparent;
@@ -136,9 +136,14 @@ a { color: inherit; text-decoration: none; }
   border-bottom-color: var(--line);
   padding-top: 25px;
   padding-bottom: 1.05rem;
+  padding-inline: var(--pad-x);
 }
 .brand {
-  display: inline-flex;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: flex;
   align-items: center;
   gap: 0.75rem;
   padding: 0.1rem 0;
@@ -156,30 +161,11 @@ a { color: inherit; text-decoration: none; }
   border-radius: 50%;
   display: inline-block;
 }
-.nav-links { display: flex; align-items: center; gap: clamp(1.4rem, 3vw, 3rem); }
-.hero-mark {
-  position: absolute;
-  top: -2rem;
-  right: clamp(-2rem, -4vw, -4rem);
-  width: clamp(260px, 30vw, 420px);
-  opacity: 0.08;
-  pointer-events: none;
-  z-index: 1;
-}
-.hero-mark svg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.hero-content > * {
-  position: relative;
-}
-.hero-content { position: relative; z-index: 3; color: var(--cream); width: 100%; padding: 0 var(--pad-x) clamp(3rem, 7vh, 6rem); max-width: var(--maxw); margin-inline: auto; }
-
+.nav-links { display: flex; align-items: center; gap: clamp(1.8rem, 3vw, 3.25rem); }
 .nav-links a {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  font-size: 13.25px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   position: relative;
   padding-block: 4px;
@@ -199,6 +185,9 @@ a { color: inherit; text-decoration: none; }
 .nav-links a.inquire::after { display: none; }
 
 @media (max-width: 780px) {
+  .nav {
+    padding: 1.6rem clamp(1.35rem, 5vw, 2.5rem) 0.9rem;
+  }
   .nav-links a:not(.inquire) { display: none; }
 }
 
@@ -307,6 +296,9 @@ section.alt { background: var(--cream-2); }
 .photo-frame {
   display: block;
   position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .photo-frame img {
   width: 100%;
@@ -488,11 +480,106 @@ section.alt { background: var(--cream-2); }
 @media (max-width: 880px) { .artists { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .artists { grid-template-columns: 1fr; } }
 
+/* ---------- Pricing ---------- */
+.pricing-section { background: var(--cream); }
+.pricing-head {
+  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.8fr);
+  align-items: end;
+}
+.pricing-head .section-index,
+.pricing-head h2 { grid-column: 1; }
+.pricing-head .lede {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  margin: 0 0 0.25rem;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.pricing-card {
+  min-height: 18rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.25rem;
+  padding: clamp(1.6rem, 3vw, 2.6rem);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--cream) 88%, white);
+  transition: background .35s ease, transform .35s cubic-bezier(.2, .6, .2, 1);
+}
+.pricing-card:hover {
+  background: var(--cream-2);
+  transform: translateY(-4px);
+}
+.pricing-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.pricing-top .no {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--ink-3);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.pricing-top .price {
+  max-width: 14ch;
+  text-align: right;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: var(--terra);
+}
+.pricing-card h3 {
+  font-family: var(--serif);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: clamp(2.4rem, 4.2vw, 4rem);
+  line-height: 0.96;
+  margin: auto 0 0;
+  letter-spacing: 0.01em;
+  max-width: 100%;
+  text-wrap: balance;
+}
+.pricing-card p {
+  color: var(--ink-2);
+  max-width: 36ch;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
 /* ---------- Commission ---------- */
-.commission-simple { max-width: 54ch; }
-.commission-simple h2 { font-size: clamp(2.6rem, 5.5vw, 4.8rem); }
-.commission-simple .lede { color: var(--ink-2); margin-top: 1.4rem; }
-.contact-meta { margin-top: clamp(2.5rem, 5vw, 4rem); display: flex; flex-direction: column; gap: 1.4rem; }
+.commission {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(470px, 1fr);
+  gap: clamp(2.5rem, 4.5vw, 4.75rem);
+  align-items: start;
+}
+.commission-copy {
+  position: sticky;
+  top: 7.5rem;
+  max-width: 48ch;
+}
+.commission-copy h2 {
+  font-size: clamp(2.8rem, 4.6vw, 4.15rem);
+  margin-top: 1.2rem;
+}
+.commission-copy .lede { color: var(--ink-2); margin-top: 1.4rem; }
+.contact-meta {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
 .contact-meta .item { display: flex; flex-direction: column; gap: 4px; }
 .contact-meta .k {
   font-size: 10.5px;
@@ -504,33 +591,47 @@ section.alt { background: var(--cream-2); }
 .contact-meta .v { font-size: 1.0625rem; }
 .contact-meta .v a:hover { color: var(--terra); }
 
-form.commission-form { display: grid; grid-template-columns: 1fr 1fr; gap: 2.2rem 2rem; }
+.commission-panel,
+.booking-panel {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--cream-2) 72%, white);
+}
+.commission-panel {
+  padding: clamp(1.45rem, 2.6vw, 2.25rem);
+}
+form.commission-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.65rem 1.55rem;
+}
 .field { display: flex; flex-direction: column; gap: 0.55rem; }
 .field.full { grid-column: 1 / -1; }
 .field label {
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-2);
 }
 .field input,
 .field select,
 .field textarea {
+  width: 100%;
+  min-width: 0;
   font-family: var(--sans);
-  font-size: 1.0625rem;
+  font-size: 1.0125rem;
   color: var(--ink);
   background: transparent;
   border: 0;
   border-bottom: 1px solid var(--line-2);
   padding: 0.65rem 0;
   outline: none;
-  transition: border-color .3s ease;
+  transition: border-color .3s ease, color .3s ease;
   border-radius: 0;
   -webkit-appearance: none;
   appearance: none;
 }
-.field textarea { resize: vertical; min-height: 5.5rem; line-height: 1.6; }
+.field textarea { resize: vertical; min-height: 7.5rem; line-height: 1.6; }
 .field input:focus,
 .field select:focus,
 .field textarea:focus { border-bottom-color: var(--terra); }
@@ -538,13 +639,101 @@ form.commission-form { display: grid; grid-template-columns: 1fr 1fr; gap: 2.2re
 .field textarea::placeholder { color: var(--ink-3); }
 .field select { cursor: pointer; }
 
-.form-success {
+.form-actions {
   grid-column: 1 / -1;
-  padding: 1.5rem 0;
-  font-size: 1rem;
-  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
 }
-.form-success strong { color: var(--terra); }
+.form-note {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.form-note.success { color: var(--terra); }
+.form-note.error { color: #8f3f31; }
+
+.booking-panel {
+  grid-column: 2;
+  margin-top: -1rem;
+  overflow: hidden;
+}
+.booking-head {
+  min-height: 4.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem clamp(1.2rem, 2.4vw, 1.8rem);
+  border-bottom: 1px solid var(--line);
+}
+.booking-head a {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terra);
+  white-space: nowrap;
+}
+.booking-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 4vw, 3rem);
+  align-items: start;
+  padding: clamp(1.45rem, 2.6vw, 2.25rem);
+}
+.booking-label {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.booking-body h3 {
+  max-width: 16ch;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(2.55rem, 4.6vw, 4.7rem);
+  font-weight: 600;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+.booking-body p {
+  max-width: 48ch;
+  margin: 1.25rem 0 0;
+  color: var(--ink-2);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.booking-cta {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 0.5rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.booking-cta::before {
+  content: "";
+  width: 54px;
+  height: 1px;
+  background: var(--ink);
+  transition: width .4s cubic-bezier(.2, .6, .2, 1), background .3s;
+}
+.booking-cta:hover { color: var(--terra); }
+.booking-cta:hover::before {
+  width: 84px;
+  background: var(--terra);
+}
 
 .btn-line {
   grid-column: 1 / -1;
@@ -564,6 +753,10 @@ form.commission-form { display: grid; grid-template-columns: 1fr 1fr; gap: 2.2re
   text-transform: uppercase;
   color: var(--ink);
 }
+button.btn-line:disabled {
+  cursor: wait;
+  color: var(--ink-3);
+}
 .btn-line .ln {
   width: 54px;
   height: 1px;
@@ -573,8 +766,34 @@ form.commission-form { display: grid; grid-template-columns: 1fr 1fr; gap: 2.2re
 .btn-line:hover { color: var(--terra); }
 .btn-line:hover .ln { width: 84px; background: var(--terra); }
 @media (max-width: 880px) {
+  .pricing-head {
+    grid-template-columns: 1fr;
+  }
+  .pricing-head .section-index,
+  .pricing-head h2,
+  .pricing-head .lede {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .pricing-card { min-height: 19rem; }
   .commission { grid-template-columns: 1fr; }
+  .commission-copy { position: static; }
   form.commission-form { grid-template-columns: 1fr; }
+  .booking-panel {
+    grid-column: 1;
+    margin-top: 0;
+  }
+  .booking-body { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-card { min-height: 16rem; }
+  .commission-panel { padding: 1.2rem; }
+  .form-actions { align-items: flex-start; }
+  .booking-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 /* ---------- footer ---------- */
