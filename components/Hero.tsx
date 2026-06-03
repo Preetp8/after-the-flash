@@ -5,7 +5,9 @@ import Photo from './Photo'
 
 const slides = [
   { src: '/photos/wedding/edited/PRT06167.webp', pos: 'center 35%', scale: 'cover' },
+  { src: '/photos/vraj/edited/DSC06414.webp',    pos: 'center',     scale: 'cover' },
   { src: '/photos/bridal/edited/PRT00794.webp',  pos: 'center',     scale: 'cover' },
+  { src: '/photos/vraj/edited/DSC06421.webp',    pos: 'center',     scale: 'cover' },
 ]
 
 const INTERVAL = 5000
