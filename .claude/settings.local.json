@@ -21,7 +21,9 @@
       "Bash(git tag *)",
       "Bash(git push *)",
       "Bash(\"C:/Program Files/GitHub CLI/gh.exe\" api repos/Preetp8/after-the-flash/collaborators --jq '.[].login')",
-      "Bash(git checkout *)"
+      "Bash(git checkout *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)"
     ],
     "additionalDirectories": [
       "C:\\Users\\Preet\\Documents\\PhotoVideoVenture"
