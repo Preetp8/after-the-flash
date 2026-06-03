@@ -413,21 +413,17 @@ section.alt { background: var(--cream-2); }
   background-size: cover;
 }
 .comparison-raw {
-  filter: saturate(0.48) contrast(0.78) brightness(0.82);
+  filter: none;
 }
-.comparison-raw::after,
 .comparison-edit::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
-.comparison-raw::after {
-  background: rgba(27, 25, 22, 0.16);
-}
 .comparison-edit {
-  clip-path: inset(0 calc(100% - var(--split)) 0 0);
-  filter: saturate(1.08) contrast(1.05) brightness(1.02);
+  clip-path: inset(0 0 0 var(--split));
+  filter: none;
 }
 .comparison-edit::after {
   background: linear-gradient(90deg, rgba(244, 239, 230, 0.05), transparent 45%);

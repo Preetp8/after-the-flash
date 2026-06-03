@@ -5,33 +5,39 @@ import type { CSSProperties } from 'react'
 
 const examples = [
   {
-    id: 'living-room',
+    id: 'ceremony-color',
     no: '01',
-    title: 'Interior Light',
-    location: 'Living room study',
-    src: '/images/enhancement-living-room.png',
+    title: 'Ceremony Color',
+    location: 'Wedding coverage',
+    rawSrc: '/photos/wedding/raw/PRT06006.webp',
+    editedSrc: '/photos/wedding/edited/PRT06006.webp',
+    position: 'center 42%',
   },
   {
-    id: 'exterior',
+    id: 'portrait-tone',
     no: '02',
-    title: 'Exterior Tone',
-    location: 'Front elevation',
-    src: '/images/enhancement-exterior.png',
+    title: 'Portrait Tone',
+    location: 'Graduation session',
+    rawSrc: '/photos/grad/raw/PRT06501.webp',
+    editedSrc: '/photos/grad/edited/PRT06501.webp',
+    position: 'center',
   },
   {
-    id: 'kitchen',
+    id: 'reception-light',
     no: '03',
-    title: 'Kitchen Finish',
-    location: 'Staged kitchen',
-    src: '/images/enhancement-kitchen.png',
+    title: 'Reception Light',
+    location: 'Event portrait',
+    rawSrc: '/photos/vraj/raw/DSC06422.webp',
+    editedSrc: '/photos/vraj/edited/DSC06422.webp',
+    position: 'center',
   },
 ]
 
 export default function EnhancementSliders() {
   const [values, setValues] = useState<Record<string, number>>({
-    'living-room': 58,
-    exterior: 52,
-    kitchen: 62,
+    'ceremony-color': 58,
+    'portrait-tone': 54,
+    'reception-light': 60,
   })
 
   return (
@@ -41,9 +47,9 @@ export default function EnhancementSliders() {
           <span className="section-index">II - Image Finish</span>
           <h2 className="display">Before / After</h2>
           <p className="lede">
-            Real estate photography starts in camera, then gets refined in post:
-            cleaner color, better contrast, straighter lines, and a finished image
-            that feels ready to list, publish, or present.
+            Strong photographs start in camera, then get refined in post:
+            cleaner color, better contrast, intentional warmth, and a finished
+            image that feels ready to deliver, publish, or print.
           </p>
         </div>
 
@@ -57,8 +63,20 @@ export default function EnhancementSliders() {
                   className="comparison-frame"
                   style={{ '--split': `${value}%` } as CSSProperties & Record<'--split', string>}
                 >
-                  <div className="comparison-layer comparison-raw" style={{ backgroundImage: `url(${example.src})` }} />
-                  <div className="comparison-layer comparison-edit" style={{ backgroundImage: `url(${example.src})` }} />
+                  <div
+                    className="comparison-layer comparison-raw"
+                    style={{
+                      backgroundImage: `url(${example.rawSrc})`,
+                      backgroundPosition: example.position,
+                    }}
+                  />
+                  <div
+                    className="comparison-layer comparison-edit"
+                    style={{
+                      backgroundImage: `url(${example.editedSrc})`,
+                      backgroundPosition: example.position,
+                    }}
+                  />
                   <div className="comparison-handle" aria-hidden="true">
                     <span />
                   </div>
