@@ -5,7 +5,6 @@ import Photo from './Photo'
 
 const slides = [
   { src: '/photos/wedding/edited/PRT06167.webp', pos: 'center 35%', scale: 'cover' },
-  { src: '/photos/bridal/edited/PRT00709.webp',  pos: 'center',     scale: 'cover' },
   { src: '/photos/bridal/edited/PRT00794.webp',  pos: 'center',     scale: 'cover' },
 ]
 
