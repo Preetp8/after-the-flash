@@ -22,14 +22,14 @@ export default function Footer() {
               <a href="#">Vimeo</a>
             </div>
             <div className="col">
-              <span className="h">Studio</span>
+              <span className="h">Team</span>
               <a href="mailto:aftertheflashmedia@gmail.com">aftertheflashmedia@gmail.com</a>
               <span>Alabama &amp; the Southeast</span>
             </div>
           </div>
         </div>
         <div className="base">
-          <span>(c) 2025 After the Flash</span>
+          <span>(c) 2026 After the Flash</span>
           <span>Every frame, a work of art</span>
         </div>
       </div>

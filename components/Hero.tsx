@@ -13,8 +13,7 @@ export default function Hero() {
           After the <span className="accent">Flash</span>
         </h1>
         <div className="hero-foot">
-          <p>A photography and film studio based in Alabama, serving the Southeast. Every commission treated as a piece worth hanging.</p>
-          <span className="plate-label">Pl. 01 - Cinematic still</span>
+          <p>A photography and film team based in Alabama, serving the Southeast. Every commission treated as a piece worth hanging.</p>
         </div>
       </div>
     </section>

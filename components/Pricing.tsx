@@ -2,13 +2,13 @@ const packages = [
   {
     no: '01',
     name: 'Portraits',
-    price: '$350+',
+    price: '$200+',
     desc: 'Graduation, editorial, and personal sessions with polished selects for web and print.',
   },
   {
     no: '02',
     name: 'Real Estate',
-    price: '$450+',
+    price: '$350+',
     desc: 'Interior, exterior, and walkthrough coverage for residential and commercial spaces.',
   },
   {
@@ -20,7 +20,7 @@ const packages = [
   {
     no: '04',
     name: 'Brand Content',
-    price: '$1,200+',
+    price: '$400+',
     desc: 'Campaign stills and motion assets built around a clear visual direction.',
   },
 ]

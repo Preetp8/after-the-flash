@@ -20,7 +20,7 @@ const archivo = Archivo({
 export const metadata: Metadata = {
   title: 'After the Flash - Photography & Film',
   description:
-    'A photography and film studio that treats every commission as a piece worth hanging.',
+    'A photography and film team that treats every commission as a piece worth hanging.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -49,7 +49,7 @@ export default function Commission() {
             </p>
             <div className="contact-meta">
               <div className="item">
-                <span className="k">Studio</span>
+                <span className="k">Team</span>
                 <span className="v">
                   <a href="mailto:aftertheflashmedia@gmail.com">aftertheflashmedia@gmail.com</a>
                 </span>

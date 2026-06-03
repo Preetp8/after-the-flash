@@ -14,9 +14,9 @@ export default function Artists() {
     <section className="band" id="artists">
       <div className="shell">
         <div className="section-head reveal">
-          <span className="section-index">III — The Studio</span>
+          <span className="section-index">III — The Team</span>
           <h2 className="display">The Artists</h2>
-          <p className="lede">Six makers behind the work. A small studio, kept that way on purpose.</p>
+          <p className="lede">Six makers behind the work. A small team, kept that way on purpose.</p>
         </div>
 
         <div className="artists">

@@ -1,4 +1,4 @@
-# After the Flash Studio
+# After the Flash team
 
 _Started 2026-06-02 00:51 UTC_
 
@@ -6,7 +6,7 @@ _Started 2026-06-02 00:51 UTC_
 
 ## User
 
-A high-end photography and videography studio website called "After the Flash." The design concept is a modern art museum — every photo is treated like a work of art on display, not a service being sold. The feeling should be quiet confidence, editorial luxury, and intentional restraint.
+A high-end photography and videography team website called "After the Flash." The design concept is a modern art museum — every photo is treated like a work of art on display, not a service being sold. The feeling should be quiet confidence, editorial luxury, and intentional restraint.
 Aesthetic: Art museum meets editorial magazine. Think MoMA or Tate Modern. Large breathing room, artwork-first layouts, minimal UI that gets out of the way of the photography.
 Color palette: Warm cream and off-white for backgrounds (like gallery walls), charcoal near-black for typography, with one single accent color in dusty terracotta used sparingly — for underlines, hover states, or a single headline word only.
 Typography: Strong uppercase serif for hero headlines, clean minimal sans-serif for body and navigation. The type should feel architectural and intentional, not decorative.
@@ -103,14 +103,14 @@ The screenshot tool resets scroll to top, so I can't self-capture lower sections
 
 _[tool: fork_verifier_agent]_
 
-The empty `#root` warning is a false positive — my React mount targets `#tweaks-root` (the page itself is static HTML, only the Tweaks panel uses React). No real issue. Forking the verifier for a full visual sweep.Done. **After the Flash** is live — a single-page studio site built on the museum concept.
+The empty `#root` warning is a false positive — my React mount targets `#tweaks-root` (the page itself is static HTML, only the Tweaks panel uses React). No real issue. Forking the verifier for a full visual sweep.Done. **After the Flash** is live — a single-page team site built on the museum concept.
 
 **What's there**
 - **Hero** — full-viewport cinematic plate, thin gallery frame inset, "EVERY FRAME. A WORK OF **ART.**" in uppercase Bodoni with the single terracotta word, plus a vertical scroll cue and a "Pl. 01" museum label.
 - **The Collection** — asymmetric salon-hang gallery wall, hairline frames, placards with plate number / category / italic title / location.
 - **The Work** — four disciplines as minimal hairline-ruled rows (no icons); title goes terracotta and the row indents on hover.
 - **The Artists** — six-person bio wall, framed portraits with role + one restrained line each.
-- **Commission a Shoot** — underline-only form, lots of white space, studio meta column, line-draw "Send Inquiry" button.
+- **Commission a Shoot** — underline-only form, lots of white space, team meta column, line-draw "Send Inquiry" button.
 
 **Type & color** — Bodoni Moda (architectural Didone) for headlines, Archivo for nav/body/placards; warm cream walls, warm near-black ink, dusty terracotta used only on one hero word, hover states, and hairline ticks. No gradients, no glows.
 
