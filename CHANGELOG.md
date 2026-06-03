@@ -13,7 +13,7 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 ## [0.3.0-beta.1] — 2026-06-01
 
 ### Changed
-- Updated studio location to Alabama & the Southeast (was Los Angeles & New York)
+- Updated team location to Alabama & the Southeast (was Los Angeles & New York)
 - Updated hero subtitle, commission copy, and all four discipline descriptions
 - Renamed "The Artists" section to "The Arsenal" throughout (nav, footer, page)
 - Replaced Artists team grid with Arsenal gear list (two-column numbered rows)

@@ -1,8 +1,8 @@
 # After the Flash
 
-**Photography & Film Studio — Alabama & the Southeast**
+**Photography & Film Team — Alabama & the Southeast**
 
-A high-end photography and videography studio website. The design concept is a modern art museum — every photo treated like a work of art on display. Built with Next.js 15, React 19, and TypeScript. Deployed on Vercel.
+A high-end photography and videography team website. The design concept is a modern art museum — every photo treated like a work of art on display. Built with Next.js 15, React 19, and TypeScript. Deployed on Vercel.
 
 ---
 
