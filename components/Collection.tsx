@@ -1,15 +1,15 @@
 import Photo from './Photo'
 
 const works = [
-  { src: '/images/collection-01.jpg', tone: '6a6157', cls: 'wide w-7', cat: 'Real Estate',   title: 'Hillside Residence', loc: 'Los Angeles, California',   no: '001' },
-  { src: '/images/collection-02.jpg', tone: '2f2a25', cls: 'tall w-5', cat: 'Portraits',     title: 'Portrait No. 12',     loc: 'New York, New York',        no: '002' },
-  { src: '/images/collection-03.jpg', tone: '847a6e', cls: 'tall w-5', cat: 'Events',        title: 'The Vows',            loc: 'Sonoma, California',        no: '003' },
-  { src: '/images/collection-04.jpg', tone: '514a42', cls: 'wide w-7', cat: 'Real Estate',   title: 'Glass House',         loc: 'Palm Springs, California',  no: '004' },
-  { src: '/images/collection-05.jpg', tone: 'a89d8f', cls: 'wide w-6', cat: 'Brand Content', title: 'Atelier Goods',       loc: 'Brooklyn, New York',        no: '005' },
-  { src: '/images/collection-06.jpg', tone: '3a332d', cls: 'wide w-6', cat: 'Events',        title: 'Midnight Set',        loc: 'Marfa, Texas',              no: '006' },
+  { src: '/photos/bridal/edited/PRT00663.webp',  tone: '8a7060', cls: 'wide w-7', cat: 'Engagement', title: 'Engagement Session',  loc: '', no: '001', pos: '6% 55%',     scale: '100%' },
+  { src: '/photos/wedding/edited/PRT06008.webp', tone: '4a4440', cls: 'tall w-5', cat: 'Wedding',     title: 'Under the Veil',      loc: '', no: '002', pos: 'center',     scale: 'cover' },
+  { src: '/photos/bridal/edited/PRT00583.webp',  tone: '6a5a4a', cls: 'wide w-7', cat: 'Engagement', title: 'Engagement Editorial',loc: '', no: '003', pos: 'center 40%', scale: 'cover' },
+  { src: '/photos/grad/edited/PRT06362.webp',    tone: '7a6858', cls: 'tall w-5', cat: 'Portraits',   title: 'Graduation Portrait', loc: '', no: '004', pos: '80% center',     scale: '115%' },
+  { src: '/photos/grad/edited/PRT06291.webp',    tone: '585850', cls: 'wide w-6', cat: 'Portraits',   title: 'Graduation Session',  loc: '', no: '005', pos: 'center',     scale: 'cover' },
+  { src: '/photos/wedding/edited/PRT05939.webp', tone: '4a3e35', cls: 'tall w-6', cat: 'Wedding',     title: 'Wedding Day',         loc: '', no: '006', pos: 'center',     scale: 'cover' },
 ]
 
-export default function Collection() {
+  export default function Collection() {
   return (
     <section className="band" id="collection">
       <div className="shell">
@@ -26,14 +26,14 @@ export default function Collection() {
           {works.map(w => (
             <article key={w.no} className={`work ${w.cls} reveal`}>
               <div className="frame">
-                <Photo src={w.src} alt={w.title} tone={w.tone} />
+                <Photo src={w.src} alt={w.title} tone={w.tone} pos={w.pos} scale={w.scale} />
               </div>
               <div className="placard">
                 <span className="no">{w.no}</span>
                 <span className="meta">
                   <span className="cat">{w.cat}</span>
                   <span className="title">{w.title}</span>
-                  <span className="loc">{w.loc}</span>
+                  {w.loc && <span className="loc">{w.loc}</span>}
                 </span>
               </div>
             </article>
