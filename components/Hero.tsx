@@ -3,28 +3,53 @@
 import { useState, useEffect } from 'react'
 import Photo from './Photo'
 
-const slides = [
-  { src: '/photos/wedding/edited/PRT06167.webp', pos: 'center 35%', scale: 'cover' },
-  { src: '/photos/vraj/edited/DSC06414.webp',    pos: 'center',     scale: 'cover' },
-  { src: '/photos/bridal/edited/PRT00794.webp',  pos: 'center',     scale: 'cover' },
-  { src: '/photos/vraj/edited/DSC06421.webp',    pos: 'center',     scale: 'cover' },
+type Slide = {
+  src: string
+  pos: string
+  scale: string
+  mobilePos?: string
+  mobileScale?: string
+  hideOnMobile?: boolean
+}
+
+const slides: Slide[] = [
+  { src: '/photos/wedding/edited/PRT06167.webp', pos: 'center 35%', scale: 'cover', mobilePos: '54% center' },
+  { src: '/photos/vraj/edited/DSC06414.webp',    pos: 'center',     scale: 'cover', hideOnMobile: true },
+  { src: '/photos/bridal/edited/PRT00794.webp',  pos: 'center',     scale: 'cover', mobilePos: '50% center' },
+  { src: '/photos/vraj/edited/DSC06421.webp',    pos: 'center',     scale: 'cover', mobilePos: '58% center' },
 ]
 
 const INTERVAL = 5000
 
 export default function Hero() {
   const [current, setCurrent] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+  const activeSlides = slides.filter(slide => !isMobile || !slide.hideOnMobile)
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrent(i => (i + 1) % slides.length)
+      setCurrent(i => (i + 1) % activeSlides.length)
     }, INTERVAL)
     return () => clearInterval(timer)
+  }, [activeSlides.length])
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 560px)')
+
+    function onChange() {
+      setIsMobile(media.matches)
+      setCurrent(0)
+    }
+
+    onChange()
+    media.addEventListener('change', onChange)
+
+    return () => media.removeEventListener('change', onChange)
   }, [])
 
   return (
     <section className="hero" id="top">
-      {slides.map((slide, i) => (
+      {activeSlides.map((slide, i) => (
         <div
           key={slide.src}
           style={{
@@ -35,7 +60,15 @@ export default function Hero() {
             zIndex: 0,
           }}
         >
-          <Photo src={slide.src} alt="" tone="211e19" pos={slide.pos} scale={slide.scale} />
+          <Photo
+            src={slide.src}
+            alt=""
+            tone="211e19"
+            pos={slide.pos}
+            scale={slide.scale}
+            mobilePos={slide.mobilePos}
+            mobileScale={slide.mobileScale}
+          />
         </div>
       ))}
       <div className="tint" />

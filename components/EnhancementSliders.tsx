@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import type { CSSProperties } from 'react'
+import type { CSSProperties, PointerEvent } from 'react'
 
 const examples = [
   {
@@ -39,6 +39,35 @@ export default function EnhancementSliders() {
     'portrait-tone': 54,
     'reception-light': 60,
   })
+  const [activeId, setActiveId] = useState<string | null>(null)
+
+  function updateSplit(id: string, clientX: number, element: HTMLElement) {
+    const rect = element.getBoundingClientRect()
+    const next = Math.round(((clientX - rect.left) / rect.width) * 100)
+    const clamped = Math.min(100, Math.max(0, next))
+
+    setValues(current => ({
+      ...current,
+      [id]: clamped,
+    }))
+  }
+
+  function startDrag(id: string, event: PointerEvent<HTMLDivElement>) {
+    event.currentTarget.setPointerCapture(event.pointerId)
+    setActiveId(id)
+    updateSplit(id, event.clientX, event.currentTarget)
+  }
+
+  function moveDrag(id: string, event: PointerEvent<HTMLDivElement>) {
+    if (activeId === id) {
+      updateSplit(id, event.clientX, event.currentTarget)
+    }
+  }
+
+  function stopDrag(event: PointerEvent<HTMLDivElement>) {
+    event.currentTarget.releasePointerCapture(event.pointerId)
+    setActiveId(null)
+  }
 
   return (
     <section className="band enhancement-section" id="enhancement">
@@ -61,6 +90,10 @@ export default function EnhancementSliders() {
               <article className="enhancement-card reveal" key={example.id}>
                 <div
                   className="comparison-frame"
+                  onPointerCancel={stopDrag}
+                  onPointerDown={event => startDrag(example.id, event)}
+                  onPointerMove={event => moveDrag(example.id, event)}
+                  onPointerUp={stopDrag}
                   style={{ '--split': `${value}%` } as CSSProperties & Record<'--split', string>}
                 >
                   <div
