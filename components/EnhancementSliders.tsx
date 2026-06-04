@@ -9,9 +9,10 @@ const examples = [
     no: '01',
     title: 'Ceremony Color',
     location: 'Wedding coverage',
-    rawSrc: '/photos/wedding/raw/PRT06006.webp',
-    editedSrc: '/photos/wedding/edited/PRT06006.webp',
+    rawSrc: '/photos/bridal/raw/PRT00467.webp',
+    editedSrc: '/photos/bridal/edited/PRT00467.webp',
     position: 'center 42%',
+    scale: '150%',
   },
   {
     id: 'portrait-tone',
@@ -101,6 +102,7 @@ export default function EnhancementSliders() {
                     style={{
                       backgroundImage: `url(${example.rawSrc})`,
                       backgroundPosition: example.position,
+                      backgroundSize: example.scale || 'cover',
                     }}
                   />
                   <div
@@ -108,6 +110,7 @@ export default function EnhancementSliders() {
                     style={{
                       backgroundImage: `url(${example.editedSrc})`,
                       backgroundPosition: example.position,
+                      backgroundSize: example.scale || 'cover',
                     }}
                   />
                   <div className="comparison-handle" aria-hidden="true">
