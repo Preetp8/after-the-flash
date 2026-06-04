@@ -19,8 +19,8 @@ const examples = [
     no: '02',
     title: 'Portrait Tone',
     location: 'Graduation session',
-    rawSrc: '/photos/grad/raw/PRT06501.webp',
-    editedSrc: '/photos/grad/edited/PRT06501.webp',
+    rawSrc: '/photos/grad/raw/IMG_2254.webp',
+    editedSrc: '/photos/grad/edited/IMG_2254.webp',
     position: 'center',
   },
   {

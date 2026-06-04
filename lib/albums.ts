@@ -7,6 +7,7 @@ export interface Album {
   photos: string[]
   cls: string
   count: number
+  hidden?: boolean
 }
 
 export const albums: Album[] = [
@@ -71,21 +72,24 @@ export const albums: Album[] = [
       '/photos/grad/edited/PRT06472.webp',
       '/photos/grad/edited/PRT06501.webp',
       '/photos/grad/edited/PRT06523.webp',
+      '/photos/grad/edited/IMG_2254.webp',
+      '/photos/grad/edited/IMG_2256.webp',
     ],
     cls: 'tall w-5',
-    count: 8,
+    count: 10,
   },
   {
     slug: 'portraits',
     no: '004',
     cat: 'Portraits',
     title: 'Portrait Sessions',
-    thumbnail: { src: '/photos/vraj/edited/photo_4974692905238858756_y.jpg', tone: '8f704d', pos: 'center 32%', scale: 'cover' },
+    thumbnail: { src: '/photos/portraits/edited/DSC06503.webp', tone: '8f704d', pos: 'center', scale: 'cover' },
     photos: [
-      '/photos/vraj/edited/photo_4974692905238858756_y.jpg',
+      '/photos/portraits/edited/DSC06503.webp',
     ],
     cls: 'tall w-5',
     count: 1,
+    hidden: true,
   },
   {
     slug: 'reception',

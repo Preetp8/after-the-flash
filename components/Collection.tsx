@@ -15,7 +15,7 @@ export default function Collection() {
         </div>
 
         <div className="gallery">
-          {albums.map(album => (
+          {albums.filter(a => !a.hidden).map(album => (
             <AlbumCard key={album.slug} album={album} />
           ))}
         </div>
