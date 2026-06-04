@@ -57,10 +57,10 @@ export const albums: Album[] = [
     count: 5,
   },
   {
-    slug: 'portraits',
+    slug: 'graduation',
     no: '003',
-    cat: 'Portraits',
-    title: 'Portraits',
+    cat: 'Graduation',
+    title: 'Graduation Portraits',
     thumbnail: { src: '/photos/grad/edited/PRT06362.webp', tone: '7a6858', pos: '80% center', scale: '115%' },
     photos: [
       '/photos/grad/edited/PRT06260.webp',
@@ -76,8 +76,20 @@ export const albums: Album[] = [
     count: 8,
   },
   {
-    slug: 'reception',
+    slug: 'portraits',
     no: '004',
+    cat: 'Portraits',
+    title: 'Portrait Sessions',
+    thumbnail: { src: '/photos/vraj/edited/photo_4974692905238858756_y.jpg', tone: '8f704d', pos: 'center 32%', scale: 'cover' },
+    photos: [
+      '/photos/vraj/edited/photo_4974692905238858756_y.jpg',
+    ],
+    cls: 'tall w-5',
+    count: 1,
+  },
+  {
+    slug: 'reception',
+    no: '005',
     cat: 'Wedding',
     title: 'Wedding Reception',
     thumbnail: { src: '/photos/vraj/edited/DSC06409.webp', tone: '5a4a40', pos: 'center', scale: 'cover' },

@@ -31,7 +31,9 @@ export default function AlbumCard({ album }: AlbumCardProps) {
             scale={thumbnail.scale}
           />
         </div>
-        <span className="album-count" aria-hidden="true">{count} pictures</span>
+        <span className="album-count" aria-hidden="true">
+          {count} {count === 1 ? 'picture' : 'pictures'}
+        </span>
       </button>
 
       <div className="placard">
