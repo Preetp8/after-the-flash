@@ -1399,6 +1399,9 @@ button.btn-line:disabled {
 .footer .col a,
 .footer .col span { font-size: 0.95rem; color: rgba(244, 239, 230, 0.82); }
 .footer .col a:hover { color: var(--terra); }
+.footer .social-icons { display: flex; gap: 1rem; align-items: center; margin-top: 0.2rem; }
+.footer .social-icon { display: flex; color: rgba(244, 239, 230, 0.82); transition: color 0.2s, transform 0.2s; }
+.footer .social-icon:hover { color: var(--terra); transform: translateY(-2px); }
 .footer .base {
   display: flex;
   justify-content: space-between;
