@@ -1,34 +1,50 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
+import Image from 'next/image'
 
 export default function FlashIntro() {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)   // true from first render — overlay blocks site immediately
+  const [active, setActive]   = useState(false)  // animations only start after layout effect confirms first visit
   const [leaving, setLeaving] = useState(false)
 
-  useEffect(() => {
-    if (sessionStorage.getItem('atf-intro')) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  useLayoutEffect(() => {
+    // Runs synchronously before browser paints — returning visitors see 0 frames of overlay
+    if (
+      sessionStorage.getItem('atf-intro') ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      setVisible(false)
+      return
+    }
 
     sessionStorage.setItem('atf-intro', '1')
-    setVisible(true)
+    setActive(true)
 
-    const t1 = setTimeout(() => setLeaving(true), 2600)
-    const t2 = setTimeout(() => setVisible(false), 3550)
+    const t1 = setTimeout(() => setLeaving(true), 1800)
+    const t2 = setTimeout(() => setVisible(false), 2650)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
 
   if (!visible) return null
 
   return (
-    <div className={`flash-intro${leaving ? ' flash-intro--leaving' : ''}`} aria-hidden="true">
+    <div
+      className={`flash-intro${active ? ' flash-intro--active' : ''}${leaving ? ' flash-intro--leaving' : ''}`}
+      aria-hidden="true"
+    >
+      {/* Separate div so the dark bg can fade independently from the radial circle */}
+      <div className="flash-intro__bg" />
       <div className="flash-intro__burst" />
-      <div className="flash-intro__vignette" />
-      <div className="flash-intro__content">
-        <div className="flash-intro__rule" />
-        <span className="flash-intro__line flash-intro__line--1">After the</span>
-        <span className="flash-intro__line flash-intro__line--2">Flash</span>
-      </div>
+      <div className="flash-intro__radial" />
+      <Image
+        src="/logo/WHITE LOGO.png"
+        alt=""
+        width={200}
+        height={200}
+        className="flash-intro__logo"
+        priority
+      />
     </div>
   )
 }
