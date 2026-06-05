@@ -1417,21 +1417,17 @@ button.btn-line:disabled {
 }
 
 /* ---------- flash intro ---------- */
-@keyframes atf-burst {
-  0%, 8% { opacity: 1; }
-  100%    { opacity: 0; }
-}
 @keyframes atf-logo-in {
-  from { opacity: 0; transform: scale(0.88); }
+  from { opacity: 0; transform: scale(0.82); }
   to   { opacity: 1; transform: scale(1); }
 }
-@keyframes atf-bg-out {
-  to { opacity: 0; }
+@keyframes atf-logo-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.14); }
 }
-@keyframes atf-radial-bang {
-  0%   { transform: translate(-50%, -50%) scale(0);  opacity: 1; }
-  55%  { opacity: 0.9; }
-  100% { transform: translate(-50%, -50%) scale(38); opacity: 0; }
+@keyframes atf-bg-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
 }
 
 .flash-intro {
@@ -1443,7 +1439,6 @@ button.btn-line:disabled {
   justify-content: center;
 }
 
-/* Dark ink layer lives here so it can fade independently of the radial */
 .flash-intro__bg {
   position: absolute;
   inset: 0;
@@ -1452,52 +1447,23 @@ button.btn-line:disabled {
 }
 
 .flash-intro--leaving .flash-intro__bg {
-  animation: atf-bg-out 0.4s ease-out forwards;
-}
-
-/* Full-screen white burst on load — sibling of bg, so opacity is independent */
-.flash-intro__burst {
-  position: absolute;
-  inset: 0;
-  background: #fff;
-  opacity: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.flash-intro--active .flash-intro__burst {
-  opacity: 1;
-  animation: atf-burst 0.55s ease-out forwards;
-}
-
-/* Radial light orb that explodes outward on reveal */
-.flash-intro__radial {
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  background: radial-gradient(circle, #fff 0%, rgba(255, 255, 255, 0.75) 35%, rgba(255, 255, 255, 0.1) 65%, transparent 80%);
-  z-index: 3;
-  pointer-events: none;
-}
-
-.flash-intro--leaving .flash-intro__radial {
-  animation: atf-radial-bang 0.75s cubic-bezier(0, 0, 0.25, 1) forwards;
+  animation: atf-bg-out 0.55s ease-in-out 0.1s forwards;
 }
 
 .flash-intro__logo {
   position: relative;
   z-index: 1;
-  width: clamp(130px, 16vw, 210px);
+  width: clamp(120px, 14vw, 190px);
   height: auto;
   opacity: 0;
 }
 
 .flash-intro--active .flash-intro__logo {
-  animation: atf-logo-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+  animation: atf-logo-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+.flash-intro--leaving .flash-intro__logo {
+  animation: atf-logo-out 0.5s ease-in forwards;
 }
 
 /* ---------- back to top ---------- */
