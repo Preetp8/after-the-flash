@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   title: 'After the Flash - Photography & Film',
   description:
     'A photography and film team that treats every commission as a piece worth hanging.',
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
