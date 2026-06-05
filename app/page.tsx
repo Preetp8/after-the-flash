@@ -1,3 +1,4 @@
+import FlashIntro from '@/components/FlashIntro'
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
 import Collection from '@/components/Collection'
@@ -13,6 +14,7 @@ import BackToTop from '@/components/BackToTop'
 export default function Home() {
   return (
     <>
+      <FlashIntro />
       <ScrollRevealProvider />
       <Nav />
       <Hero />
