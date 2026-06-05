@@ -1418,26 +1418,27 @@ button.btn-line:disabled {
 
 /* ---------- flash intro ---------- */
 
-/* Logo eases in with a gentle spring settle */
+/* Entry: logo develops like a photo in a darkroom — blur dissolves, scale settles */
 @keyframes atf-logo-in {
-  0%   { opacity: 0; transform: scale(0.78); }
-  70%  { opacity: 1; transform: scale(1.03); }
-  100% { opacity: 1; transform: scale(1); }
-}
-
-/* Logo launches outward and reaches opacity 0 well before white clears */
-@keyframes atf-logo-expand {
-  0%   { opacity: 1; transform: scale(1); }
-  18%  { opacity: 1; transform: scale(1.06); }
-  70%  { opacity: 0; transform: scale(16); }
-  100% { opacity: 0; transform: scale(22); }
+  0%   { opacity: 0; transform: scale(0.9);  filter: blur(14px); }
+  55%  { opacity: 1; transform: scale(1.02); filter: blur(0px);  }
+  100% { opacity: 1; transform: scale(1);    filter: blur(0px);  }
 }
 
 /*
-  White holds at full opacity from 32%–65% so the logo is fully
-  gone (opacity 0 by 70% of expand = ~0.38s) before white clears.
-  Bg fades behind the white during the hold so the hero is visible
-  by the time white fades out.
+  Exit: logo zooms very large while blurring out, reaches opacity 0
+  well before the white dip clears — so it's fully gone under the flash.
+*/
+@keyframes atf-logo-expand {
+  0%   { opacity: 1; transform: scale(1);  filter: blur(0px);  }
+  20%  { opacity: 1; transform: scale(1.06); filter: blur(3px);  }
+  70%  { opacity: 0; transform: scale(16);   filter: blur(22px); }
+  100% { opacity: 0; transform: scale(22);   filter: blur(30px); }
+}
+
+/*
+  White dip: rises quickly, holds (32–65%) while logo finishes its exit
+  under cover, then fades to reveal the hero cleanly.
 */
 @keyframes atf-white-dip {
   0%   { opacity: 0; }
@@ -1446,6 +1447,7 @@ button.btn-line:disabled {
   100% { opacity: 0; }
 }
 
+/* Dark bg fades while white is still fully opaque — invisible to the user */
 @keyframes atf-bg-out {
   from { opacity: 1; }
   to   { opacity: 0; }
@@ -1467,11 +1469,11 @@ button.btn-line:disabled {
   z-index: 0;
 }
 
-/* bg fades while white is still fully opaque — invisible to user */
 .flash-intro--leaving .flash-intro__bg {
-  animation: atf-bg-out 0.45s ease-in-out 0.1s forwards;
+  animation: atf-bg-out 0.45s ease-out 0.12s forwards;
 }
 
+/* White flash — sits above logo so it covers the expanding blur cleanly */
 .flash-intro__white {
   position: absolute;
   inset: 0;
@@ -1482,24 +1484,27 @@ button.btn-line:disabled {
 }
 
 .flash-intro--leaving .flash-intro__white {
-  animation: atf-white-dip 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.06s forwards;
+  animation: atf-white-dip 0.88s cubic-bezier(0.4, 0, 0.2, 1) 0.06s forwards;
 }
 
-.flash-intro__logo {
+.flash-intro__logo-wrap {
   position: relative;
   z-index: 1;
-  width: clamp(120px, 14vw, 190px);
-  height: auto;
   opacity: 0;
 }
 
-.flash-intro--active .flash-intro__logo {
-  animation: atf-logo-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+.flash-intro--active .flash-intro__logo-wrap {
+  animation: atf-logo-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
 
-/* Logo expands to opacity 0 before the white-dip hold ends */
-.flash-intro--leaving .flash-intro__logo {
+.flash-intro--leaving .flash-intro__logo-wrap {
   animation: atf-logo-expand 0.55s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.flash-intro__logo {
+  display: block;
+  width: clamp(120px, 14vw, 190px);
+  height: auto;
 }
 
 /* ---------- back to top ---------- */

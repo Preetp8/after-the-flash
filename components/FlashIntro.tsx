@@ -20,8 +20,8 @@ export default function FlashIntro() {
     sessionStorage.setItem('atf-intro', '1')
     setActive(true)
 
-    const t1 = setTimeout(() => setLeaving(true), 1100)
-    const t2 = setTimeout(() => setVisible(false), 2250)
+    const t1 = setTimeout(() => setLeaving(true), 1400)
+    const t2 = setTimeout(() => setVisible(false), 2550)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
 
@@ -34,14 +34,16 @@ export default function FlashIntro() {
     >
       <div className="flash-intro__bg" />
       <div className="flash-intro__white" />
-      <Image
-        src="/logo/WHITE LOGO.png"
-        alt=""
-        width={200}
-        height={200}
-        className="flash-intro__logo"
-        priority
-      />
+      <div className="flash-intro__logo-wrap">
+        <Image
+          src="/logo/WHITE LOGO.png"
+          alt=""
+          width={200}
+          height={200}
+          className="flash-intro__logo"
+          priority
+        />
+      </div>
     </div>
   )
 }
