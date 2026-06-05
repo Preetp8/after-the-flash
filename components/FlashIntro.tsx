@@ -20,8 +20,8 @@ export default function FlashIntro() {
     sessionStorage.setItem('atf-intro', '1')
     setActive(true)
 
-    const t1 = setTimeout(() => setLeaving(true), 1600)
-    const t2 = setTimeout(() => setVisible(false), 2200)
+    const t1 = setTimeout(() => setLeaving(true), 1100)
+    const t2 = setTimeout(() => setVisible(false), 2250)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
 
@@ -33,6 +33,7 @@ export default function FlashIntro() {
       aria-hidden="true"
     >
       <div className="flash-intro__bg" />
+      <div className="flash-intro__white" />
       <Image
         src="/logo/WHITE LOGO.png"
         alt=""
