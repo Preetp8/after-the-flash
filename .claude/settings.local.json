@@ -24,28 +24,12 @@
       "Bash(git checkout *)",
       "Bash(git pull *)",
       "Bash(git stash *)",
-      "Bash(npx tsc *)",
-      "Bash(git -C /Users/preetwork/Developer/Applications/after-the-flash status)",
-      "Bash(git -C /Users/preetwork/Developer/Applications/after-the-flash diff)",
-      "Bash(git -C /Users/preetwork/Developer/Applications/after-the-flash add app/globals.css components/Footer.tsx)",
-      "Bash(git -C /Users/preetwork/Developer/Applications/after-the-flash commit -m ' *)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
-      "Bash(node -e ' *)",
-      "Bash(npx playwright *)",
-      "Read(//Users/preetwork/**)",
-      "Bash(npm list *)",
-      "Bash(kill 58043)",
-      "Bash(git -C /Users/preetwork/Developer/Applications/after-the-flash checkout -b test/flash-animation)",
-      "Bash(git -C /Users/preetwork/Developer/Applications/after-the-flash add components/FlashIntro.tsx app/page.tsx app/globals.css)",
-      "Bash(npm run *)",
-      "Bash(pkill -f \"next dev\")",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001)",
-      "WebSearch",
-      "Bash(git -C /Users/preetwork/Developer/Applications/after-the-flash add components/FlashIntro.tsx app/globals.css)"
+      "Bash(gh release create v0.3.0-beta.2 --target main --title v0.3.0-beta.2 --notes 'feat\\(albums\\): add new grad and portrait photos, hide portraits album until complete *)",
+      "Bash(git branch *)",
+      "Bash(gh release create v1.0.0 --target main --title v1.0.0 --notes 'Initial production release. *)"
     ],
     "additionalDirectories": [
-      "C:\\Users\\Preet\\Documents\\PhotoVideoVenture",
-      "/private/tmp"
+      "C:\\Users\\Preet\\Documents\\PhotoVideoVenture"
     ]
   }
 }
