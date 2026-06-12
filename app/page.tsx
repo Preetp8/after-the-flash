@@ -4,6 +4,7 @@ import Hero from '@/components/Hero'
 import Collection from '@/components/Collection'
 import EnhancementSliders from '@/components/EnhancementSliders'
 import TheWork from '@/components/TheWork'
+import Reel from '@/components/Reel'
 import Arsenal from '@/components/Arsenal'
 import Pricing from '@/components/Pricing'
 import Commission from '@/components/Commission'
@@ -20,6 +21,7 @@ export default function Home() {
       <Hero />
       <Collection />
       <EnhancementSliders />
+      <Reel />
       <TheWork />
       <Arsenal />
       <Pricing />
