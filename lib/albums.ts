@@ -125,8 +125,9 @@ export const albums: Album[] = [
     title: 'Vulcans Knee',
     thumbnail: { src: '/photos/realestate/Vulcans%20Knee/AV101173-HDR.webp', tone: '6a7060', pos: 'center', scale: 'cover' },
     photos: [
-      '/photos/realestate/Vulcans%20Knee/AV101173-HDR.webp',
+      // '/photos/realestate/Vulcans%20Knee/AV101173-HDR.webp',
       '/photos/realestate/Vulcans%20Knee/AV101224-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV203055.webp',
       '/photos/realestate/Vulcans%20Knee/AV101166-HDR.webp',
       '/photos/realestate/Vulcans%20Knee/AV101209-HDR.webp',
       '/photos/realestate/Vulcans%20Knee/AV101236-HDR.webp',
@@ -147,7 +148,6 @@ export const albums: Album[] = [
       '/photos/realestate/Vulcans%20Knee/AV101598-HDR.webp',
       '/photos/realestate/Vulcans%20Knee/AV101614-HDR.webp',
       '/photos/realestate/Vulcans%20Knee/AV101636-HDR.webp',
-      '/photos/realestate/Vulcans%20Knee/AV203055.webp',
       '/photos/realestate/Vulcans%20Knee/AV203093.webp',
       '/photos/realestate/Vulcans%20Knee/Main_00_00_23_10-RE%20Client%20Delivery-2.webp',
     ],
