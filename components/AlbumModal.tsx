@@ -103,20 +103,24 @@ export default function AlbumModal({ album, onClose }: AlbumModalProps) {
         </div>
 
         <div className="album-modal-grid">
-          {album.photos.map((src, i) => (
-            <button
-              key={i}
-              className="album-modal-photo"
-              onClick={() => setLightboxIndex(i)}
-              aria-label={`View ${album.title} — plate ${i + 1} fullscreen`}
-            >
-              <img
-                src={src}
-                alt={`${album.title} — plate ${i + 1}`}
-                loading="lazy"
-              />
-            </button>
-          ))}
+          {album.photos.map((src, i) => {
+            const isVS = album.virtuallyStaged?.includes(src)
+            return (
+              <button
+                key={i}
+                className="album-modal-photo"
+                onClick={() => setLightboxIndex(i)}
+                aria-label={`View ${album.title} — plate ${i + 1} fullscreen`}
+              >
+                <img
+                  src={src}
+                  alt={`${album.title} — plate ${i + 1}`}
+                  loading="lazy"
+                />
+                {isVS && <span className="vs-badge">Virtually Staged</span>}
+              </button>
+            )
+          })}
         </div>
 
         {lightboxIndex !== null && (
@@ -147,6 +151,9 @@ export default function AlbumModal({ album, onClose }: AlbumModalProps) {
               alt={`${album.title} — plate ${lightboxIndex + 1}`}
               onClick={e => e.stopPropagation()}
             />
+            {album.virtuallyStaged?.includes(album.photos[lightboxIndex]) && (
+              <span className="vs-badge vs-badge--lightbox">Virtually Staged</span>
+            )}
             <button
               className="album-lightbox-nav album-lightbox-next"
               onClick={e => { e.stopPropagation(); setLightboxIndex(i => (i! + 1) % album.photos.length) }}

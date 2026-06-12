@@ -8,6 +8,7 @@ export interface Album {
   cls: string
   count: number
   hidden?: boolean
+  virtuallyStaged?: string[]
 }
 
 export const albums: Album[] = [
@@ -92,8 +93,34 @@ export const albums: Album[] = [
     hidden: true,
   },
   {
-    slug: 'reception',
+    slug: 'realestate',
     no: '005',
+    cat: 'Real Estate',
+    title: 'Real Estate',
+    thumbnail: { src: '/photos/realestate/location%201/virtuallystaged.webp', tone: '6a7060', pos: 'center', scale: 'cover' },
+    photos: [
+      '/photos/realestate/location%201/AV100966-HDR.webp',
+      '/photos/realestate/location%201/AV100994-HDR.webp',
+      '/photos/realestate/location%201/AV100999-HDR.webp',
+      '/photos/realestate/location%201/AV101008-HDR.webp',
+      '/photos/realestate/location%201/AV101029-HDR.webp',
+      '/photos/realestate/location%201/virtuallystaged.webp',
+      '/photos/realestate/location%201/virtuallystaged2.webp',
+      '/photos/realestate/location%201/virtuallystaged3.webp',
+      '/photos/realestate/location%201/virtuallystaged4.webp',
+    ],
+    cls: 'wide w-6',
+    count: 9,
+    virtuallyStaged: [
+      '/photos/realestate/location%201/virtuallystaged.webp',
+      '/photos/realestate/location%201/virtuallystaged2.webp',
+      '/photos/realestate/location%201/virtuallystaged3.webp',
+      '/photos/realestate/location%201/virtuallystaged4.webp',
+    ],
+  },
+  {
+    slug: 'reception',
+    no: '006',
     cat: 'Wedding',
     title: 'Wedding Reception',
     thumbnail: { src: '/photos/vraj/edited/DSC06409.webp', tone: '5a4a40', pos: 'center', scale: 'cover' },

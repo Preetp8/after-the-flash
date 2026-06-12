@@ -32,6 +32,15 @@ const examples = [
     editedSrc: '/photos/vraj/edited/DSC06422.webp',
     position: 'center',
   },
+  {
+    id: 'virtual-staging',
+    no: '04',
+    title: 'Virtual Staging',
+    location: 'Real estate',
+    rawSrc: '/photos/realestate/location%201/AV100999-HDR.webp',
+    editedSrc: '/photos/realestate/location%201/virtuallystaged2.webp',
+    position: 'center',
+  },
 ]
 
 export default function EnhancementSliders() {
@@ -39,6 +48,7 @@ export default function EnhancementSliders() {
     'ceremony-color': 58,
     'portrait-tone': 54,
     'reception-light': 60,
+    'virtual-staging': 55,
   })
   const [activeId, setActiveId] = useState<string | null>(null)
 
