@@ -2,6 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import Lightbox from 'yet-another-react-lightbox'
+import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails'
+import Zoom from 'yet-another-react-lightbox/plugins/zoom'
+import 'yet-another-react-lightbox/styles.css'
+import 'yet-another-react-lightbox/plugins/thumbnails.css'
 import type { Album } from '@/lib/albums'
 
 interface AlbumModalProps {
@@ -16,33 +21,24 @@ export default function AlbumModal({ album, onClose }: AlbumModalProps) {
   const closeRef = useRef<HTMLButtonElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
 
-  // Hydrate portal target, then trigger fade-in
   useEffect(() => {
     setMounted(true)
     const id = requestAnimationFrame(() => setVisible(true))
     return () => cancelAnimationFrame(id)
   }, [])
 
-  // Focus close button on open
   useEffect(() => {
     if (mounted) closeRef.current?.focus()
   }, [mounted])
 
-  // ESC key — close lightbox first, then modal
+  // ESC closes modal (lightbox handles its own ESC internally)
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        if (lightboxIndex !== null) setLightboxIndex(null)
-        else onClose()
-      }
-      if (e.key === 'ArrowRight' && lightboxIndex !== null)
-        setLightboxIndex(i => (i! + 1) % album.photos.length)
-      if (e.key === 'ArrowLeft' && lightboxIndex !== null)
-        setLightboxIndex(i => (i! - 1 + album.photos.length) % album.photos.length)
+      if (e.key === 'Escape' && lightboxIndex === null) onClose()
     }
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
-  }, [onClose, lightboxIndex, album.photos.length])
+  }, [onClose, lightboxIndex])
 
   // Lock body scroll
   useEffect(() => {
@@ -74,97 +70,100 @@ export default function AlbumModal({ album, onClose }: AlbumModalProps) {
 
   if (!mounted) return null
 
+  const slides = album.photos.map(src => ({ src }))
+
   const content = (
-    <div
-      className={`album-modal-overlay${visible ? ' open' : ''}`}
-      onClick={onClose}
-    >
+    <>
       <div
-        className="album-modal-panel"
-        ref={panelRef}
-        role="dialog"
-        aria-modal="true"
-        aria-label={album.title}
-        onClick={e => e.stopPropagation()}
+        className={`album-modal-overlay${visible ? ' open' : ''}`}
+        onClick={onClose}
       >
-        <div className="album-modal-header">
-          <div>
-            <span className="album-modal-cat">{album.cat}</span>
-            <h3 className="album-modal-title">{album.title}</h3>
-          </div>
-          <button
-            ref={closeRef}
-            className="album-modal-close"
-            onClick={onClose}
-            aria-label="Close album"
-          >
-            ×
-          </button>
-        </div>
-
-        <div className="album-modal-grid">
-          {album.photos.map((src, i) => {
-            const isVS = album.virtuallyStaged?.includes(src)
-            return (
-              <button
-                key={i}
-                className="album-modal-photo"
-                onClick={() => setLightboxIndex(i)}
-                aria-label={`View ${album.title} — plate ${i + 1} fullscreen`}
-              >
-                <img
-                  src={src}
-                  alt={`${album.title} — plate ${i + 1}`}
-                  loading="lazy"
-                />
-                {isVS && <span className="vs-badge">Virtually Staged</span>}
-              </button>
-            )
-          })}
-        </div>
-
-        {lightboxIndex !== null && (
-          <div
-            className="album-lightbox-overlay"
-            onClick={() => setLightboxIndex(null)}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Fullscreen image"
-          >
+        <div
+          className="album-modal-panel"
+          ref={panelRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={album.title}
+          onClick={e => e.stopPropagation()}
+        >
+          <div className="album-modal-header">
+            <div>
+              <span className="album-modal-cat">{album.cat}</span>
+              <h3 className="album-modal-title">{album.title}</h3>
+              <span className="album-modal-count">{album.count} frames</span>
+            </div>
             <button
-              className="album-lightbox-close"
-              onClick={() => setLightboxIndex(null)}
-              aria-label="Close fullscreen"
+              ref={closeRef}
+              className="album-modal-close"
+              onClick={onClose}
+              aria-label="Close album"
             >
               ×
             </button>
-            <button
-              className="album-lightbox-nav album-lightbox-prev"
-              onClick={e => { e.stopPropagation(); setLightboxIndex(i => (i! - 1 + album.photos.length) % album.photos.length) }}
-              aria-label="Previous image"
-            >
-              ‹
-            </button>
-            <img
-              className="album-lightbox-img"
-              src={album.photos[lightboxIndex]}
-              alt={`${album.title} — plate ${lightboxIndex + 1}`}
-              onClick={e => e.stopPropagation()}
-            />
-            {album.virtuallyStaged?.includes(album.photos[lightboxIndex]) && (
-              <span className="vs-badge vs-badge--lightbox">Virtually Staged</span>
-            )}
-            <button
-              className="album-lightbox-nav album-lightbox-next"
-              onClick={e => { e.stopPropagation(); setLightboxIndex(i => (i! + 1) % album.photos.length) }}
-              aria-label="Next image"
-            >
-              ›
-            </button>
           </div>
-        )}
+
+          <div className="album-modal-grid">
+            {album.photos.map((src, i) => {
+              const isVS = album.virtuallyStaged?.includes(src)
+              return (
+                <button
+                  key={i}
+                  className="album-modal-photo"
+                  onClick={() => setLightboxIndex(i)}
+                  aria-label={`View ${album.title} — plate ${i + 1} fullscreen`}
+                >
+                  <img
+                    src={src}
+                    alt={`${album.title} — plate ${i + 1}`}
+                    loading="lazy"
+                  />
+                  {isVS && <span className="vs-badge">Virtually Staged</span>}
+                </button>
+              )
+            })}
+          </div>
+        </div>
       </div>
-    </div>
+
+      {/* YARL lightbox — renders above everything */}
+      <Lightbox
+        open={lightboxIndex !== null}
+        close={() => setLightboxIndex(null)}
+        index={lightboxIndex ?? 0}
+        slides={slides}
+        plugins={[Thumbnails, Zoom]}
+        animation={{ fade: 320, swipe: 380 }}
+        controller={{ closeOnBackdropClick: true }}
+        thumbnails={{
+          position: 'bottom',
+          width: 80,
+          height: 56,
+          gap: 10,
+          padding: 4,
+          border: 0,
+          borderRadius: 0,
+          imageFit: 'cover',
+        }}
+        zoom={{ maxZoomPixelRatio: 3, scrollToZoom: true }}
+        render={{
+          slideFooter: ({ slide }) => {
+            const src = (slide as { src: string }).src
+            if (album.virtuallyStaged?.includes(src)) {
+              return <span className="vs-badge vs-badge--lightbox">Virtually Staged</span>
+            }
+            return null
+          },
+        }}
+        styles={{
+          container: { backgroundColor: 'rgba(8, 7, 5, 0.95)' },
+          thumbnailsContainer: { backgroundColor: 'rgba(8, 7, 5, 0.95)' },
+          thumbnail: { border: '1px solid rgba(255,255,255,0.12)' },
+        }}
+        on={{
+          view: ({ index }) => setLightboxIndex(index),
+        }}
+      />
+    </>
   )
 
   return createPortal(content, document.body)

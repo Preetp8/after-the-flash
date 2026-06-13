@@ -9,6 +9,7 @@ export interface Album {
   count: number
   hidden?: boolean
   virtuallyStaged?: string[]
+  aspectRatio?: number  // width/height — 0.8 for 4:5 portrait, 1.5 for 3:2 landscape
 }
 
 export const albums: Album[] = [
@@ -41,6 +42,7 @@ export const albums: Album[] = [
     ],
     cls: 'wide w-7',
     count: 19,
+    aspectRatio: 0.8,
   },
   {
     slug: 'wedding',
@@ -57,6 +59,7 @@ export const albums: Album[] = [
     ],
     cls: 'tall w-5',
     count: 5,
+    aspectRatio: 0.8,
   },
   {
     slug: 'graduation',
@@ -78,6 +81,7 @@ export const albums: Album[] = [
     ],
     cls: 'tall w-5',
     count: 10,
+    aspectRatio: 0.8,
   },
   {
     slug: 'portraits',
@@ -91,6 +95,7 @@ export const albums: Album[] = [
     cls: 'tall w-5',
     count: 1,
     hidden: true,
+    aspectRatio: 0.8,
   },
   {
     slug: 'location-1',
@@ -111,6 +116,7 @@ export const albums: Album[] = [
     ],
     cls: 'tall w-5',
     count: 9,
+    aspectRatio: 1.5,
     virtuallyStaged: [
       '/photos/realestate/location%201/virtuallystaged.webp',
       '/photos/realestate/location%201/virtuallystaged2.webp',
@@ -153,6 +159,7 @@ export const albums: Album[] = [
     ],
     cls: 'wide w-7',
     count: 25,
+    aspectRatio: 1.5,
   },
   {
     slug: 'reception',
@@ -171,5 +178,6 @@ export const albums: Album[] = [
     ],
     cls: 'wide w-7',
     count: 7,
+    aspectRatio: 1.33,
   },
 ]
