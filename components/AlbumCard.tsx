@@ -1,50 +1,48 @@
 'use client'
 
-import { useState } from 'react'
-import Photo from './Photo'
+import { useState, type CSSProperties } from 'react'
 import AlbumModal from './AlbumModal'
 import type { Album } from '@/lib/albums'
 
 interface AlbumCardProps {
   album: Album
+  index?: number
 }
 
-export default function AlbumCard({ album }: AlbumCardProps) {
+export default function AlbumCard({ album, index = 0 }: AlbumCardProps) {
   const [open, setOpen] = useState(false)
-  const { no, cat, title, thumbnail, cls, count } = album
+  const { cat, title, thumbnail } = album
 
   return (
-    <article className={`work ${cls} reveal`}>
-      <button
-        className="album-stack"
-        onClick={() => setOpen(true)}
-        aria-label={`Open ${title} album`}
+    <>
+      <article
+        className="tile"
+        style={{ '--i': index } as CSSProperties}
       >
-        <div className="frame album-ghost ghost-2" aria-hidden="true" />
-        <div className="frame album-ghost ghost-1" aria-hidden="true" />
-        <div className="frame album-main">
-          <Photo
-            src={thumbnail.src}
-            alt={title}
-            tone={thumbnail.tone}
-            pos={thumbnail.pos}
-            scale={thumbnail.scale}
-          />
+        <button
+          className="tile-btn"
+          onClick={() => setOpen(true)}
+          aria-label={`Open ${title} album`}
+        >
+          <div className="tile-stack">
+            <div className="tile-ghost tile-ghost-2" aria-hidden="true" />
+            <div className="tile-ghost tile-ghost-1" aria-hidden="true" />
+            <div className="tile-img">
+              <img
+                src={thumbnail.src}
+                alt={title}
+                style={{ objectPosition: thumbnail.pos || 'center' }}
+              />
+            </div>
+          </div>
+        </button>
+        <div className="tile-cap">
+          <span className="tile-cat">{cat}</span>
+          <span className="tile-title">{title}</span>
         </div>
-        <span className="album-count" aria-hidden="true">
-          {count} {count === 1 ? 'picture' : 'pictures'}
-        </span>
-      </button>
-
-      <div className="placard">
-        <span className="no">{no}</span>
-        <span className="meta">
-          <span className="cat">{cat}</span>
-          <span className="title">{title}</span>
-        </span>
-      </div>
+      </article>
 
       {open && <AlbumModal album={album} onClose={() => setOpen(false)} />}
-    </article>
+    </>
   )
 }
