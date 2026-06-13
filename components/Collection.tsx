@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from 'react'
 import { albums } from '@/lib/albums'
 import AlbumCard from './AlbumCard'
 
-// Landscape albums (vulcans-knee, location-1) sit in the center column of each row
-// giving both rows a clear visual anchor point
+// Portrait/landscape alternation per row creates natural visual rhythm
 const DISPLAY_ORDER = [
-  'engagement', 'vulcans-knee', 'graduation',
-  'wedding',    'location-1',   'reception',
+  'engagement',  'vulcans-knee',
+  'wedding',     'graduation',
+  'location-1',  'reception',
 ]
 
 const visible = albums.filter(a => !a.hidden)
