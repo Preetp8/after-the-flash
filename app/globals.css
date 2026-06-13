@@ -518,8 +518,8 @@ section.alt { background: var(--cream-2); }
 /* Inner grid — 3 equal columns, large row-gap creates the airy feel */
 .collection-grid-inner {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: clamp(20px, 2.8vw, 40px);
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: clamp(24px, 3vw, 48px);
   row-gap: clamp(80px, 11vw, 148px);
 }
 
@@ -646,9 +646,6 @@ section.alt { background: var(--cream-2); }
   .tile-btn:hover .tile-img,
   .tile-btn:hover .tile-ghost-1,
   .tile-btn:hover .tile-ghost-2 { transform: none; }
-}
-@media (max-width: 900px) {
-  .collection-grid-inner { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 540px) {
   .collection-grid-inner { grid-template-columns: 1fr; row-gap: clamp(40px, 10vw, 60px); }
