@@ -9,6 +9,7 @@ export interface Album {
   count: number
   hidden?: boolean
   virtuallyStaged?: string[]
+  aspectRatio?: number  // width/height — 0.8 for 4:5 portrait, 1.5 for 3:2 landscape
 }
 
 export const albums: Album[] = [
@@ -41,6 +42,7 @@ export const albums: Album[] = [
     ],
     cls: 'wide w-7',
     count: 19,
+    aspectRatio: 0.8,
   },
   {
     slug: 'wedding',
@@ -57,6 +59,7 @@ export const albums: Album[] = [
     ],
     cls: 'tall w-5',
     count: 5,
+    aspectRatio: 0.8,
   },
   {
     slug: 'graduation',
@@ -78,6 +81,7 @@ export const albums: Album[] = [
     ],
     cls: 'tall w-5',
     count: 10,
+    aspectRatio: 0.8,
   },
   {
     slug: 'portraits',
@@ -91,12 +95,13 @@ export const albums: Album[] = [
     cls: 'tall w-5',
     count: 1,
     hidden: true,
+    aspectRatio: 0.8,
   },
   {
-    slug: 'realestate',
+    slug: 'location-1',
     no: '005',
     cat: 'Real Estate',
-    title: 'Real Estate',
+    title: 'Virtual Staging',
     thumbnail: { src: '/photos/realestate/location%201/virtuallystaged.webp', tone: '6a7060', pos: 'center', scale: 'cover' },
     photos: [
       '/photos/realestate/location%201/AV100966-HDR.webp',
@@ -109,8 +114,9 @@ export const albums: Album[] = [
       '/photos/realestate/location%201/virtuallystaged3.webp',
       '/photos/realestate/location%201/virtuallystaged4.webp',
     ],
-    cls: 'wide w-6',
+    cls: 'tall w-5',
     count: 9,
+    aspectRatio: 1.5,
     virtuallyStaged: [
       '/photos/realestate/location%201/virtuallystaged.webp',
       '/photos/realestate/location%201/virtuallystaged2.webp',
@@ -119,8 +125,45 @@ export const albums: Album[] = [
     ],
   },
   {
-    slug: 'reception',
+    slug: 'vulcans-knee',
     no: '006',
+    cat: 'Real Estate',
+    title: 'Vulcans Knee',
+    thumbnail: { src: '/photos/realestate/Vulcans%20Knee/AV101173-HDR.webp', tone: '6a7060', pos: 'center', scale: 'cover' },
+    photos: [
+      // '/photos/realestate/Vulcans%20Knee/AV101173-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101224-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV203055.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101166-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101209-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101236-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101272-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101677-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101320-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101325-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101348-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101355-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101377-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101371-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101405-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101518-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101552-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101561-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101573-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101589-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101598-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101614-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV101636-HDR.webp',
+      '/photos/realestate/Vulcans%20Knee/AV203093.webp',
+      '/photos/realestate/Vulcans%20Knee/Main_00_00_23_10-RE%20Client%20Delivery-2.webp',
+    ],
+    cls: 'wide w-7',
+    count: 25,
+    aspectRatio: 1.5,
+  },
+  {
+    slug: 'reception',
+    no: '007',
     cat: 'Wedding',
     title: 'Wedding Reception',
     thumbnail: { src: '/photos/vraj/edited/DSC06409.webp', tone: '5a4a40', pos: 'center', scale: 'cover' },
@@ -135,5 +178,6 @@ export const albums: Album[] = [
     ],
     cls: 'wide w-7',
     count: 7,
+    aspectRatio: 1.33,
   },
 ]
