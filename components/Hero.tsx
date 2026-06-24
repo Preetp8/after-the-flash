@@ -13,10 +13,15 @@ type Slide = {
 }
 
 const slides: Slide[] = [
-  { src: '/photos/wedding/edited/PRT06167.webp', pos: 'center 35%', scale: 'cover', mobilePos: '54% center' },
-  { src: '/photos/vraj/edited/DSC06414.webp',    pos: 'center',     scale: 'cover', hideOnMobile: true },
-  { src: '/photos/bridal/edited/PRT00794.webp',  pos: 'center',     scale: 'cover', mobilePos: '50% center' },
-  { src: '/photos/vraj/edited/DSC06421.webp',    pos: 'center',     scale: 'cover', mobilePos: '58% center' },
+  { src: '/photos/realestate/Vulcans%20Knee/AV101272-HDR.webp',               pos: 'center 85%', scale: 'cover', mobilePos: '50% 65%' },
+  { src: '/photos/wedding/edited/PRT06167.webp',                              pos: 'center 35%', scale: 'cover', mobilePos: '54% center' },
+  { src: '/photos/realestate/location%201/virtuallystaged2.webp',             pos: 'center',     scale: 'cover', mobilePos: '50% center' },
+  { src: '/photos/vraj/edited/DSC06414.webp',                                 pos: 'center',     scale: 'cover', hideOnMobile: true },
+  { src: '/photos/realestate/location%201/virtuallystaged.webp',              pos: 'center',     scale: 'cover', mobilePos: '50% center' },
+  { src: '/photos/bridal/edited/PRT00794.webp',                               pos: 'center',     scale: 'cover', mobilePos: '50% center' },
+  { src: '/photos/vraj/edited/DSC06421.webp',                                 pos: 'center',     scale: 'cover', mobilePos: '58% center' },
+  { src: '/photos/realestate/Vulcans%20Knee/AV101325-HDR.webp',               pos: 'center',     scale: 'cover', mobilePos: '50% center' },
+  { src: '/photos/realestate/Vulcans%20Knee/AV101371-HDR.webp',               pos: 'center',     scale: 'cover', mobilePos: '50% center' },
 ]
 
 const INTERVAL = 5000
