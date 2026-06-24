@@ -1289,6 +1289,28 @@ form.commission-form {
 }
 .field input[type="date"] { color-scheme: light; }
 
+.note-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.note-prompt-chip {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  background: transparent;
+  border: 1px solid var(--line-2);
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  transition: border-color .2s ease, color .2s ease, background .2s ease;
+}
+.note-prompt-chip:hover { border-color: var(--ink-2); color: var(--ink); }
+.note-prompt-chip.active { border-color: var(--terra); color: var(--terra); }
+
 .form-actions {
   grid-column: 1 / -1;
   display: flex;

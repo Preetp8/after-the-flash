@@ -1,14 +1,24 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { FormEvent, useState, useRef } from 'react'
 import { trackEvent } from '@/lib/analytics'
 
 const bookingUrl = 'https://calendly.com/aftertheflashmedia/30min'
+
+const NOTE_PROMPTS = [
+  { label: 'Real Estate', text: 'Listing at [address]. Need photos + video walkthrough. Property is [sq ft / beds / baths]. Going live around [date].' },
+  { label: 'Wedding', text: 'Wedding at [venue], [city]. Ceremony at [time], reception until [time]. Looking for full day coverage — ceremony, portraits, and reception.' },
+  { label: 'Engagement', text: 'Engagement session for [names]. Outdoor preferred, [location / vibe]. Relaxed and natural feel, no overly posed shots.' },
+  { label: 'Graduation', text: 'Graduation portraits for [name], [school / program]. Outdoor session, [city]. Want a mix of formal and candid shots.' },
+  { label: 'Brand / Event', text: 'Brand shoot for [business name]. Need [headshots / product / event coverage]. Will be used for [website / social / print].' },
+]
 
 type SubmitState = 'idle' | 'sending' | 'sent' | 'error'
 
 export default function Commission() {
   const [submitState, setSubmitState] = useState<SubmitState>('idle')
+  const [activePrompt, setActivePrompt] = useState<string | null>(null)
+  const messageRef = useRef<HTMLTextAreaElement>(null)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -118,9 +128,25 @@ export default function Commission() {
               </div>
               <div className="field full">
                 <label htmlFor="message">Project Notes</label>
+                <div className="note-prompts">
+                  {NOTE_PROMPTS.map(p => (
+                    <button
+                      key={p.label}
+                      type="button"
+                      className={`note-prompt-chip${activePrompt === p.label ? ' active' : ''}`}
+                      onClick={() => {
+                        if (messageRef.current) messageRef.current.value = p.text
+                        setActivePrompt(p.label)
+                      }}
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
                 <textarea
                   id="message"
                   name="message"
+                  ref={messageRef}
                   placeholder="What are we making, where will it live, and what should it feel like?"
                   required
                 />
