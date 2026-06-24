@@ -14,6 +14,14 @@ interface ReelItem {
 
 const videos: ReelItem[] = [
   {
+    no: 'R-000',
+    cat: 'Real Estate',
+    title: "Vulcan's Knee",
+    loc: '',
+    youtubeId: 'B478-HxW2so',
+    duration: '0:50',
+  },
+  {
     no: 'R-001',
     cat: 'Real Estate',
     title: 'Cinematic Real Estate',
