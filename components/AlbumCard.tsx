@@ -3,6 +3,7 @@
 import { useState, type CSSProperties } from 'react'
 import AlbumModal from './AlbumModal'
 import type { Album } from '@/lib/albums'
+import { trackEvent } from '@/lib/analytics'
 
 interface AlbumCardProps {
   album: Album
@@ -21,7 +22,7 @@ export default function AlbumCard({ album, index = 0 }: AlbumCardProps) {
       >
         <button
           className="tile-btn"
-          onClick={() => setOpen(true)}
+          onClick={() => { trackEvent('album_open', { album_title: title, album_category: cat }); setOpen(true) }}
           aria-label={`Open ${title} album`}
         >
           <div className="tile-stack">

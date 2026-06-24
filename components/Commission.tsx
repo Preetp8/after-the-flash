@@ -1,6 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
+import { trackEvent } from '@/lib/analytics'
 
 const bookingUrl = 'https://calendly.com/aftertheflashmedia/30min'
 
@@ -29,6 +30,7 @@ export default function Commission() {
 
       form.reset()
       setSubmitState('sent')
+      trackEvent('inquiry_submitted', { service: String(payload.service ?? ''), budget: String(payload.budget ?? '') })
     } catch {
       setSubmitState('error')
     }
@@ -51,7 +53,7 @@ export default function Commission() {
               <div className="item">
                 <span className="k">Team</span>
                 <span className="v">
-                  <a href="mailto:aftertheflashmedia@gmail.com">aftertheflashmedia@gmail.com</a>
+                  <a href="mailto:aftertheflashmedia@gmail.com" onClick={() => trackEvent('email_click', { source: 'commission' })}>aftertheflashmedia@gmail.com</a>
                 </span>
               </div>
               <div className="item">
@@ -132,7 +134,7 @@ export default function Commission() {
           <aside className="booking-panel reveal" id="booking">
             <div className="booking-head">
               <span className="section-index">Discovery Call</span>
-              <a href={bookingUrl} target="_blank" rel="noreferrer">Open Calendar</a>
+              <a href={bookingUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent('calendly_click', { source: 'open_calendar' })}>Open Calendar</a>
             </div>
             <div className="booking-body">
               <div className="booking-copy">
@@ -144,7 +146,7 @@ export default function Commission() {
                   before we shape the quote or production plan.
                 </p>
               </div>
-              <a className="booking-cta" href={bookingUrl} target="_blank" rel="noreferrer">
+              <a className="booking-cta" href={bookingUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent('calendly_click', { source: 'book_call' })}>
                 Book a Discovery Call
               </a>
             </div>

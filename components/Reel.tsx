@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
+import { trackEvent } from '@/lib/analytics'
 
 interface ReelItem {
   no: string
@@ -98,7 +99,7 @@ function ReelCard({ item }: { item: ReelItem }) {
     <article className="reel-card reveal">
       <button
         className="reel-thumb-btn"
-        onClick={() => setOpen(true)}
+        onClick={() => { trackEvent('video_play', { video_title: item.title, video_id: item.youtubeId }); setOpen(true) }}
         aria-label={`Play ${item.title}`}
       >
         <div className="frame reel-frame">
