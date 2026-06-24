@@ -92,6 +92,29 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false }, { status: 502 })
     }
 
+    if (process.env.DISCORD_WEBHOOK_URL) {
+      fetch(process.env.DISCORD_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          embeds: [{
+            title: '📸 New Inquiry — After the Flash',
+            color: 0x1b1916,
+            fields: [
+              { name: 'Name', value: inquiry.name, inline: true },
+              { name: 'Service', value: inquiry.service, inline: true },
+              { name: 'Budget', value: inquiry.budget, inline: true },
+              { name: 'Email', value: inquiry.email, inline: true },
+              { name: 'Date', value: inquiry.date, inline: true },
+              { name: 'Location', value: inquiry.location, inline: true },
+              { name: 'Notes', value: inquiry.message },
+            ],
+            timestamp: new Date().toISOString(),
+          }],
+        }),
+      }).catch(err => console.error('Discord notify failed:', err))
+    }
+
     return NextResponse.json({ ok: true })
   } catch {
     return NextResponse.json({ ok: false }, { status: 400 })
