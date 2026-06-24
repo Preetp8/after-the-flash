@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const businessEmail = 'preetpatel260@gmail.com'
+const businessEmail = 'aftertheflashmedia@gmail.com'
 const fromEmail = process.env.RESEND_FROM_EMAIL || 'After the Flash <onboarding@resend.dev>'
 
 function clean(value: unknown) {
