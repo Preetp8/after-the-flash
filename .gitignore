@@ -28,6 +28,9 @@
 *.tsbuildinfo
 next-env.d.ts
 
+# claude
+.claude/settings.local.json
+
 # misc
 .DS_Store
 *.pem
