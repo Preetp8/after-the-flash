@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Bodoni_Moda, Archivo } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 
 const bodoniModa = Bodoni_Moda({
@@ -32,6 +33,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${bodoniModa.variable} ${archivo.variable}`} suppressHydrationWarning>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-674CGNM0ZZ" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-674CGNM0ZZ');
+          `}
+        </Script>
         {children}
       </body>
     </html>
