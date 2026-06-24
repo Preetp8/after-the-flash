@@ -30,7 +30,7 @@ export default function DateRangePicker({ onRangeChange }: DateRangePickerProps)
     const from = r?.from ? r.from.toISOString().split('T')[0] : ''
     const to = r?.to ? r.to.toISOString().split('T')[0] : ''
     onRangeChange(from, to)
-    if (r?.from && r?.to) setOpen(false)
+    if (r?.from && r?.to && r.to > r.from) setOpen(false)
   }
 
   const label = range?.from
