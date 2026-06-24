@@ -1263,6 +1263,32 @@ form.commission-form {
 .field textarea::placeholder { color: var(--ink-3); }
 .field select { cursor: pointer; }
 
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.date-range-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+.date-range-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.date-range-sep {
+  color: var(--ink-3);
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 1.2rem;
+}
+.field input[type="date"] { color-scheme: light; }
+
 .form-actions {
   grid-column: 1 / -1;
   display: flex;

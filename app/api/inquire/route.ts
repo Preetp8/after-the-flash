@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       email: clean(body?.email),
       service: clean(body?.service),
       budget: clean(body?.budget) || 'Not provided',
-      date: clean(body?.date) || 'Not provided',
+      date: [clean(body?.dateFrom), clean(body?.dateTo)].filter(Boolean).join(' — ') || 'Not provided',
       location: clean(body?.location) || 'Not provided',
       message: clean(body?.message),
     }

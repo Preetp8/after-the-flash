@@ -98,9 +98,19 @@ export default function Commission() {
                   <option>$3,500+</option>
                 </select>
               </div>
-              <div className="field">
-                <label htmlFor="date">Ideal Date</label>
-                <input id="date" name="date" type="text" placeholder="Month / date range" />
+              <div className="field full">
+                <label>Ideal Date Range</label>
+                <div className="date-range">
+                  <div className="date-range-field">
+                    <span className="date-range-label">From</span>
+                    <input id="date-from" name="dateFrom" type="date" />
+                  </div>
+                  <span className="date-range-sep">—</span>
+                  <div className="date-range-field">
+                    <span className="date-range-label">To</span>
+                    <input id="date-to" name="dateTo" type="date" />
+                  </div>
+                </div>
               </div>
               <div className="field">
                 <label htmlFor="location">Location</label>
