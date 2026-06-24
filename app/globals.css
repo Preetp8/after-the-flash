@@ -1289,6 +1289,70 @@ form.commission-form {
 }
 .field input[type="date"] { color-scheme: light; }
 
+/* Date range picker */
+.drp-wrap { position: relative; }
+.drp-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 1.0125rem;
+  color: var(--ink-3);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line-2);
+  padding: 0.65rem 0;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .3s ease;
+}
+.drp-trigger.has-value { color: var(--ink); }
+.drp-trigger.open { border-bottom-color: var(--terra); }
+.drp-trigger svg { flex-shrink: 0; color: var(--ink-3); }
+.drp-clear {
+  position: absolute;
+  right: 1.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: var(--ink-3);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 0.25rem;
+}
+.drp-popover {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  z-index: 100;
+  background: var(--cream);
+  border: 1px solid var(--line-2);
+  box-shadow: 0 8px 32px rgba(27,25,22,0.12);
+}
+.drp-popover .rdp-root {
+  --rdp-accent-color: var(--terra);
+  --rdp-accent-background-color: rgba(178,100,80,0.12);
+  --rdp-day-font: var(--sans);
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  padding: 1rem;
+  color: var(--ink);
+}
+.drp-popover .rdp-day_button { border-radius: 0; }
+.drp-popover .rdp-selected .rdp-day_button,
+.drp-popover .rdp-range_start .rdp-day_button,
+.drp-popover .rdp-range_end .rdp-day_button { background: var(--terra); color: var(--cream); }
+.drp-popover .rdp-range_middle .rdp-day_button { background: rgba(178,100,80,0.12); color: var(--ink); }
+.drp-popover .rdp-nav button { border-radius: 0; }
+@media (max-width: 640px) {
+  .drp-popover { position: fixed; left: var(--pad-x); right: var(--pad-x); top: auto; }
+  .drp-popover .rdp-root { --rdp-month_grid_width: 100%; }
+  .drp-popover .rdp-months { flex-direction: column; }
+}
+
 .note-prompts {
   display: flex;
   flex-wrap: wrap;

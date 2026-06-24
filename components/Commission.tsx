@@ -2,6 +2,7 @@
 
 import { FormEvent, useState, useRef } from 'react'
 import { trackEvent } from '@/lib/analytics'
+import DateRangePicker from './DateRangePicker'
 
 const bookingUrl = 'https://calendly.com/aftertheflashmedia/30min'
 
@@ -18,6 +19,8 @@ type SubmitState = 'idle' | 'sending' | 'sent' | 'error'
 export default function Commission() {
   const [submitState, setSubmitState] = useState<SubmitState>('idle')
   const [activePrompt, setActivePrompt] = useState<string | null>(null)
+  const [dateFrom, setDateFrom] = useState('')
+  const [dateTo, setDateTo] = useState('')
   const messageRef = useRef<HTMLTextAreaElement>(null)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -110,17 +113,9 @@ export default function Commission() {
               </div>
               <div className="field full">
                 <label>Ideal Date Range</label>
-                <div className="date-range">
-                  <div className="date-range-field">
-                    <span className="date-range-label">From</span>
-                    <input id="date-from" name="dateFrom" type="date" />
-                  </div>
-                  <span className="date-range-sep">—</span>
-                  <div className="date-range-field">
-                    <span className="date-range-label">To</span>
-                    <input id="date-to" name="dateTo" type="date" />
-                  </div>
-                </div>
+                <DateRangePicker onRangeChange={(from, to) => { setDateFrom(from); setDateTo(to) }} />
+                <input type="hidden" name="dateFrom" value={dateFrom} readOnly />
+                <input type="hidden" name="dateTo" value={dateTo} readOnly />
               </div>
               <div className="field">
                 <label htmlFor="location">Location</label>
