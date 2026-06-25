@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useState, useRef } from 'react'
+import { FormEvent, useState } from 'react'
 import { trackEvent } from '@/lib/analytics'
 import DateRangePicker from './DateRangePicker'
 
@@ -21,7 +21,7 @@ export default function Commission() {
   const [activePrompt, setActivePrompt] = useState<string | null>(null)
   const [dateFrom, setDateFrom] = useState('')
   const [dateTo, setDateTo] = useState('')
-  const messageRef = useRef<HTMLTextAreaElement>(null)
+
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -129,10 +129,7 @@ export default function Commission() {
                       key={p.label}
                       type="button"
                       className={`note-prompt-chip${activePrompt === p.label ? ' active' : ''}`}
-                      onClick={() => {
-                        if (messageRef.current) messageRef.current.value = p.text
-                        setActivePrompt(p.label)
-                      }}
+                      onClick={() => setActivePrompt(p.label)}
                     >
                       {p.label}
                     </button>
@@ -141,8 +138,7 @@ export default function Commission() {
                 <textarea
                   id="message"
                   name="message"
-                  ref={messageRef}
-                  placeholder="What are we making, where will it live, and what should it feel like?"
+                  placeholder={NOTE_PROMPTS.find(p => p.label === activePrompt)?.text ?? 'What are we making, where will it live, and what should it feel like?'}
                   required
                 />
               </div>

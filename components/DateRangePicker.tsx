@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { DayPicker, type DateRange } from 'react-day-picker'
-import 'react-day-picker/style.css'
 
 interface DateRangePickerProps {
   onRangeChange: (from: string, to: string) => void
