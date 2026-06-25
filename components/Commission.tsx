@@ -2,16 +2,36 @@
 
 import { FormEvent, useState } from 'react'
 import { trackEvent } from '@/lib/analytics'
+import DateRangePicker from './DateRangePicker'
 
 const bookingUrl = 'https://calendly.com/aftertheflashmedia/30min'
+
+const NOTE_PROMPTS = [
+  { label: 'Real Estate', text: 'Listing at [address]. Need photos + video walkthrough. Property is [sq ft / beds / baths]. Going live around [date].' },
+  { label: 'Wedding', text: 'Wedding at [venue], [city]. Ceremony at [time], reception until [time]. Looking for full day coverage — ceremony, portraits, and reception.' },
+  { label: 'Engagement', text: 'Engagement session for [names]. Outdoor preferred, [location / vibe]. Relaxed and natural feel, no overly posed shots.' },
+  { label: 'Graduation', text: 'Graduation portraits for [name], [school / program]. Outdoor session, [city]. Want a mix of formal and candid shots.' },
+  { label: 'Brand / Event', text: 'Brand shoot for [business name]. Need [headshots / product / event coverage]. Will be used for [website / social / print].' },
+]
 
 type SubmitState = 'idle' | 'sending' | 'sent' | 'error'
 
 export default function Commission() {
   const [submitState, setSubmitState] = useState<SubmitState>('idle')
+  const [activePrompt, setActivePrompt] = useState<string | null>(null)
+  const [dateFrom, setDateFrom] = useState('')
+  const [dateTo, setDateTo] = useState('')
+  const [emailError, setEmailError] = useState('')
+
+  function validateEmail(value: string) {
+    if (!value) { setEmailError(''); return }
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+    setEmailError(valid ? '' : 'Please enter a valid email address')
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    if (emailError) return
     setSubmitState('sending')
 
     const form = event.currentTarget
@@ -24,11 +44,12 @@ export default function Commission() {
         body: JSON.stringify(payload),
       })
 
-      if (!res.ok) {
-        throw new Error('Inquiry failed')
-      }
+      if (!res.ok) throw new Error('Inquiry failed')
 
       form.reset()
+      setActivePrompt(null)
+      setDateFrom('')
+      setDateTo('')
       setSubmitState('sent')
       trackEvent('inquiry_submitted', { service: String(payload.service ?? ''), budget: String(payload.budget ?? '') })
     } catch {
@@ -68,77 +89,131 @@ export default function Commission() {
           </div>
 
           <div className="commission-panel reveal">
-            <form className="commission-form" onSubmit={handleSubmit}>
-              <div className="field">
-                <label htmlFor="name">Name</label>
-                <input id="name" name="name" type="text" placeholder="Your name" required />
-              </div>
-              <div className="field">
-                <label htmlFor="email">Email</label>
-                <input id="email" name="email" type="email" placeholder="you@example.com" required />
-              </div>
-              <div className="field">
-                <label htmlFor="service">Shoot Type</label>
-                <select id="service" name="service" defaultValue="" required>
-                  <option value="" disabled>Select one</option>
-                  <option>Real Estate</option>
-                  <option>Event Coverage</option>
-                  <option>Portrait Session</option>
-                  <option>Brand Content</option>
-                  <option>Film + Photo</option>
-                </select>
-              </div>
-              <div className="field">
-                <label htmlFor="budget">Budget Signal</label>
-                <select id="budget" name="budget" defaultValue="">
-                  <option value="">Not sure yet</option>
-                  <option>$350-$750</option>
-                  <option>$750-$1,500</option>
-                  <option>$1,500-$3,500</option>
-                  <option>$3,500+</option>
-                </select>
-              </div>
-              <div className="field full">
-                <label>Ideal Date Range</label>
-                <div className="date-range">
-                  <div className="date-range-field">
-                    <span className="date-range-label">From</span>
-                    <input id="date-from" name="dateFrom" type="date" />
-                  </div>
-                  <span className="date-range-sep">—</span>
-                  <div className="date-range-field">
-                    <span className="date-range-label">To</span>
-                    <input id="date-to" name="dateTo" type="date" />
-                  </div>
+            {submitState === 'sent' ? (
+              <div className="form-success">
+                <p className="form-success-eyebrow">Inquiry received</p>
+                <h3 className="form-success-heading">We will be in touch within 24 hours.</h3>
+                <p className="form-success-body">
+                  While you wait, you are welcome to book a discovery call to talk through the shoot in detail.
+                </p>
+                <div className="form-success-actions">
+                  <a className="booking-cta" href={bookingUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent('calendly_click', { source: 'success_cta' })}>
+                    Book a Discovery Call
+                  </a>
+                  <button className="form-success-reset" type="button" onClick={() => setSubmitState('idle')}>
+                    Send another inquiry
+                  </button>
                 </div>
               </div>
-              <div className="field">
-                <label htmlFor="location">Location</label>
-                <input id="location" name="location" type="text" placeholder="City, venue, property" />
-              </div>
-              <div className="field full">
-                <label htmlFor="message">Project Notes</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  placeholder="What are we making, where will it live, and what should it feel like?"
-                  required
-                />
-              </div>
+            ) : (
+              <form className="commission-form" onSubmit={handleSubmit} noValidate>
+                <div className="field">
+                  <label htmlFor="name">Name</label>
+                  <input
+                    id="name" name="name" type="text"
+                    placeholder="Your full name"
+                    autoComplete="name"
+                    required
+                  />
+                </div>
 
-              <div className="form-actions">
-                <button className="btn-line" type="submit" disabled={submitState === 'sending'}>
-                  <span className="ln" />
-                  {submitState === 'sending' ? 'Sending' : 'Send Inquiry'}
-                </button>
-                {submitState === 'sent' && (
-                  <p className="form-note success">Inquiry received. We will reply within 24 hours.</p>
-                )}
-                {submitState === 'error' && (
-                  <p className="form-note error">Something did not send. Email us directly and we will pick it up.</p>
-                )}
-              </div>
-            </form>
+                <div className="field">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    id="email" name="email" type="email"
+                    placeholder="you@example.com"
+                    autoComplete="email"
+                    inputMode="email"
+                    required
+                    onBlur={e => validateEmail(e.target.value)}
+                    onChange={e => { if (emailError) validateEmail(e.target.value) }}
+                  />
+                  {emailError && <span className="field-error">{emailError}</span>}
+                </div>
+
+                <div className="field">
+                  <label htmlFor="service">Shoot Type</label>
+                  <select id="service" name="service" defaultValue="" required>
+                    <option value="" disabled>Select one</option>
+                    <option>Real Estate</option>
+                    <option>Event Coverage</option>
+                    <option>Portrait Session</option>
+                    <option>Brand Content</option>
+                    <option>Film + Photo</option>
+                  </select>
+                </div>
+
+                <div className="field">
+                  <label htmlFor="budget">
+                    Budget <span className="field-optional">(optional)</span>
+                  </label>
+                  <select id="budget" name="budget" defaultValue="">
+                    <option value="">Not sure yet</option>
+                    <option>$350–$750</option>
+                    <option>$750–$1,500</option>
+                    <option>$1,500–$3,500</option>
+                    <option>$3,500+</option>
+                  </select>
+                  <span className="field-hint">Helps us suggest the right package — no commitment.</span>
+                </div>
+
+                <div className="field full">
+                  <label>
+                    Ideal Date Range <span className="field-optional">(optional)</span>
+                  </label>
+                  <DateRangePicker onRangeChange={(from, to) => { setDateFrom(from); setDateTo(to) }} />
+                  <input type="hidden" name="dateFrom" value={dateFrom} readOnly />
+                  <input type="hidden" name="dateTo" value={dateTo} readOnly />
+                  <span className="field-hint">Pick a single day or a window — we will work around your schedule.</span>
+                </div>
+
+                <div className="field">
+                  <label htmlFor="location">Location</label>
+                  <input
+                    id="location" name="location" type="text"
+                    placeholder="City, venue, or property address"
+                    autoComplete="address-level2"
+                    required
+                  />
+                </div>
+
+                <div className="field full">
+                  <label htmlFor="message">Project Notes</label>
+                  <p className="field-hint" style={{ marginBottom: '0.6rem' }}>Start from a template or write your own:</p>
+                  <div className="note-prompts">
+                    {NOTE_PROMPTS.map(p => (
+                      <button
+                        key={p.label}
+                        type="button"
+                        className={`note-prompt-chip${activePrompt === p.label ? ' active' : ''}`}
+                        onClick={() => setActivePrompt(p.label)}
+                      >
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder={NOTE_PROMPTS.find(p => p.label === activePrompt)?.text ?? 'What are we making, where will it live, and what should it feel like?'}
+                    required
+                  />
+                </div>
+
+                <div className="form-actions">
+                  <button className="btn-line" type="submit" disabled={submitState === 'sending' || !!emailError}>
+                    <span className="ln" />
+                    {submitState === 'sending' ? 'Sending…' : 'Send Inquiry'}
+                  </button>
+                  {submitState === 'error' && (
+                    <p className="form-note error">
+                      Something went wrong on our end. Try again, or email us directly at{' '}
+                      <a href="mailto:aftertheflashmedia@gmail.com">aftertheflashmedia@gmail.com</a>.
+                    </p>
+                  )}
+                </div>
+              </form>
+            )}
           </div>
 
           <aside className="booking-panel reveal" id="booking">

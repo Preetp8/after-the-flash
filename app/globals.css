@@ -1262,6 +1262,58 @@ form.commission-form {
 .field input::placeholder,
 .field textarea::placeholder { color: var(--ink-3); }
 .field select { cursor: pointer; }
+.field-optional {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 10px;
+  color: var(--ink-3);
+}
+.field-hint {
+  font-size: 0.8rem;
+  color: var(--ink-3);
+  margin-top: 0.35rem;
+  line-height: 1.4;
+}
+.field-error {
+  font-size: 0.8rem;
+  color: #b94a38;
+  margin-top: 0.35rem;
+}
+.form-success {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2.5rem 0;
+}
+.form-success-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terra);
+}
+.form-success-heading {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.form-success-body { color: var(--ink-2); line-height: 1.6; max-width: 38ch; }
+.form-success-actions { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; align-items: flex-start; }
+.form-success-reset {
+  background: none;
+  border: none;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  color: var(--ink-3);
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.form-success-reset:hover { color: var(--ink); }
 
 .date-range {
   display: flex;
@@ -1288,6 +1340,92 @@ form.commission-form {
   margin-top: 1.2rem;
 }
 .field input[type="date"] { color-scheme: light; }
+
+/* Date range picker */
+.drp-wrap { position: relative; }
+.drp-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 1.0125rem;
+  color: var(--ink-3);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line-2);
+  padding: 0.65rem 0;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .3s ease;
+}
+.drp-trigger.has-value { color: var(--ink); }
+.drp-trigger.open { border-bottom-color: var(--terra); }
+.drp-trigger svg { flex-shrink: 0; color: var(--ink-3); }
+.drp-clear {
+  position: absolute;
+  right: 1.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: var(--ink-3);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 0.25rem;
+}
+.drp-popover {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  z-index: 100;
+  background: var(--cream);
+  border: 1px solid var(--line-2);
+  box-shadow: 0 8px 32px rgba(27,25,22,0.12);
+}
+.drp-popover .rdp-root {
+  --rdp-accent-color: var(--terra);
+  --rdp-accent-background-color: rgba(178,100,80,0.12);
+  --rdp-day-font: var(--sans);
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  padding: 1rem;
+  color: var(--ink);
+}
+.drp-popover .rdp-day_button { border-radius: 0; }
+.drp-popover .rdp-selected .rdp-day_button,
+.drp-popover .rdp-range_start .rdp-day_button,
+.drp-popover .rdp-range_end .rdp-day_button { background: var(--terra); color: var(--cream); }
+.drp-popover .rdp-range_middle .rdp-day_button { background: rgba(178,100,80,0.12); color: var(--ink); }
+.drp-popover .rdp-nav button { border-radius: 0; }
+@media (max-width: 640px) {
+  .drp-popover { position: fixed; left: var(--pad-x); right: var(--pad-x); top: auto; }
+  .drp-popover .rdp-root { --rdp-month_grid_width: 100%; }
+  .drp-popover .rdp-months { flex-direction: column; }
+}
+
+.note-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.note-prompt-chip {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  background: transparent;
+  border: 1px solid var(--line-2);
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  transition: border-color .2s ease, color .2s ease, background .2s ease;
+}
+.note-prompt-chip:hover { border-color: var(--ink-2); color: var(--ink); }
+.note-prompt-chip.active { border-color: var(--terra); color: var(--terra); }
 
 .form-actions {
   grid-column: 1 / -1;
