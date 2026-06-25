@@ -70,15 +70,35 @@ export default function DateRangePicker({ onRangeChange }: DateRangePickerProps)
       )}
 
       {open && (
-        <div className="drp-popover">
-          <DayPicker
-            mode="range"
-            selected={range}
-            onSelect={handleSelect}
-            disabled={{ before: new Date() }}
-            numberOfMonths={typeof window !== 'undefined' && window.innerWidth < 640 ? 1 : 2}
-          />
-        </div>
+        <>
+          <div className="drp-backdrop" onClick={() => setOpen(false)} />
+          <div className="drp-popover">
+            <DayPicker
+              mode="range"
+              selected={range}
+              onSelect={handleSelect}
+              disabled={{ before: new Date() }}
+              numberOfMonths={typeof window !== 'undefined' && window.innerWidth < 640 ? 1 : 2}
+              fixedWeeks
+            />
+            <div className="drp-sheet-footer">
+              <button
+                type="button"
+                className="drp-sheet-reset"
+                onClick={() => { setRange(undefined); onRangeChange('', '') }}
+              >
+                Reset
+              </button>
+              <button
+                type="button"
+                className="drp-sheet-done"
+                onClick={() => setOpen(false)}
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        </>
       )}
     </div>
   )
