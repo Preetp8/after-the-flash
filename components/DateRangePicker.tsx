@@ -17,11 +17,15 @@ export default function DateRangePicker({ onRangeChange }: DateRangePickerProps)
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    function handleClick(e: MouseEvent) {
+    function handleOutside(e: MouseEvent | TouchEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
     }
-    document.addEventListener('mousedown', handleClick)
-    return () => document.removeEventListener('mousedown', handleClick)
+    document.addEventListener('mousedown', handleOutside)
+    document.addEventListener('touchstart', handleOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleOutside)
+      document.removeEventListener('touchstart', handleOutside)
+    }
   }, [])
 
   function handleSelect(r: DateRange | undefined) {
@@ -72,7 +76,7 @@ export default function DateRangePicker({ onRangeChange }: DateRangePickerProps)
             selected={range}
             onSelect={handleSelect}
             disabled={{ before: new Date() }}
-            numberOfMonths={2}
+            numberOfMonths={typeof window !== 'undefined' && window.innerWidth < 640 ? 1 : 2}
           />
         </div>
       )}

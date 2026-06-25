@@ -1400,7 +1400,15 @@ form.commission-form {
 .drp-popover .rdp-range_middle .rdp-day_button { background: rgba(178,100,80,0.12); color: var(--ink); }
 .drp-popover .rdp-nav button { border-radius: 0; }
 @media (max-width: 640px) {
-  .drp-popover { position: fixed; left: var(--pad-x); right: var(--pad-x); top: auto; }
+  .drp-popover {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    top: 5rem;
+    max-height: calc(100dvh - 7rem);
+    overflow-y: auto;
+    z-index: 200;
+  }
   .drp-popover .rdp-root { --rdp-month_grid_width: 100%; }
   .drp-popover .rdp-months { flex-direction: column; }
 }
