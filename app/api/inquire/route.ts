@@ -22,6 +22,7 @@ export async function POST(req: NextRequest) {
     const inquiry = {
       name: clean(body?.name),
       email: clean(body?.email),
+      phone: clean(body?.phone) || 'Not provided',
       service: clean(body?.service),
       budget: clean(body?.budget) || 'Not provided',
       date: [clean(body?.dateFrom), clean(body?.dateTo)].filter(Boolean).join(' — ') || 'Not provided',
@@ -47,6 +48,7 @@ export async function POST(req: NextRequest) {
       '',
       `Name: ${inquiry.name}`,
       `Email: ${inquiry.email}`,
+      `Phone: ${inquiry.phone}`,
       `Shoot type: ${inquiry.service}`,
       `Budget: ${inquiry.budget}`,
       `Ideal date: ${inquiry.date}`,
@@ -61,6 +63,7 @@ export async function POST(req: NextRequest) {
         <h1 style="font-size:22px;margin:0 0 16px">New website inquiry</h1>
         <p><strong>Name:</strong> ${escapeHtml(inquiry.name)}</p>
         <p><strong>Email:</strong> ${escapeHtml(inquiry.email)}</p>
+        <p><strong>Phone:</strong> ${escapeHtml(inquiry.phone)}</p>
         <p><strong>Shoot type:</strong> ${escapeHtml(inquiry.service)}</p>
         <p><strong>Budget:</strong> ${escapeHtml(inquiry.budget)}</p>
         <p><strong>Ideal date:</strong> ${escapeHtml(inquiry.date)}</p>
@@ -105,6 +108,7 @@ export async function POST(req: NextRequest) {
               { name: 'Service', value: inquiry.service, inline: true },
               { name: 'Budget', value: inquiry.budget, inline: true },
               { name: 'Email', value: inquiry.email, inline: true },
+              { name: 'Phone', value: inquiry.phone, inline: true },
               { name: 'Date', value: inquiry.date, inline: true },
               { name: 'Location', value: inquiry.location, inline: true },
               { name: 'Notes', value: inquiry.message },
