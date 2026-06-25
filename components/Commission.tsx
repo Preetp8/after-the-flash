@@ -1,7 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
-import { trackEvent } from '@/lib/analytics'
+import { trackEvent, trackPixel } from '@/lib/analytics'
 import DateRangePicker from './DateRangePicker'
 
 const bookingUrl = 'https://calendly.com/aftertheflashmedia/30min'
@@ -52,6 +52,7 @@ export default function Commission() {
       setDateTo('')
       setSubmitState('sent')
       trackEvent('inquiry_submitted', { service: String(payload.service ?? ''), budget: String(payload.budget ?? '') })
+      trackPixel('Lead', { content_category: String(payload.service ?? '') })
     } catch {
       setSubmitState('error')
     }
