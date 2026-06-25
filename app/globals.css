@@ -1416,16 +1416,56 @@ form.commission-form {
     right: 0;
     bottom: 0;
     top: auto;
-    max-height: 85dvh;
+    max-height: 90dvh;
     overflow-y: auto;
     z-index: 200;
-    border-radius: 1rem 1rem 0 0;
+    border-radius: 1.25rem 1.25rem 0 0;
     border: none;
     border-top: 1px solid var(--line-2);
-    box-shadow: 0 -8px 40px rgba(27,25,22,0.16);
+    box-shadow: 0 -8px 40px rgba(27,25,22,0.18);
   }
-  .drp-popover .rdp-root { --rdp-month_grid_width: 100%; padding: 1.25rem 1rem 2rem; }
+  .drp-popover .rdp-root {
+    --rdp-month_grid_width: 100%;
+    --rdp-day-height: 3rem;
+    --rdp-day-width: 3rem;
+    font-size: 1rem;
+    padding: 0.5rem 1rem 1rem;
+  }
   .drp-popover .rdp-months { flex-direction: column; }
+  .drp-popover .rdp-month_caption { font-size: 1.25rem; font-weight: 700; padding: 1rem 0 0.5rem; }
+  .drp-popover .rdp-weekday { font-size: 0.8rem; font-weight: 600; opacity: 0.5; }
+  .drp-popover .rdp-day_button { border-radius: 50%; font-size: 1rem; }
+  .drp-sheet-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line-2);
+    position: sticky;
+    bottom: 0;
+    background: var(--cream);
+  }
+  .drp-sheet-reset {
+    background: none;
+    border: none;
+    font-family: var(--sans);
+    font-size: 0.9375rem;
+    color: var(--ink-3);
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0.5rem 0;
+  }
+  .drp-sheet-done {
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    font-family: var(--sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 2rem;
+    cursor: pointer;
+  }
 }
 
 .note-prompts {

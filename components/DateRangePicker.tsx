@@ -80,6 +80,22 @@ export default function DateRangePicker({ onRangeChange }: DateRangePickerProps)
               disabled={{ before: new Date() }}
               numberOfMonths={typeof window !== 'undefined' && window.innerWidth < 640 ? 1 : 2}
             />
+            <div className="drp-sheet-footer">
+              <button
+                type="button"
+                className="drp-sheet-reset"
+                onClick={() => { setRange(undefined); onRangeChange('', '') }}
+              >
+                Reset
+              </button>
+              <button
+                type="button"
+                className="drp-sheet-done"
+                onClick={() => setOpen(false)}
+              >
+                Done
+              </button>
+            </div>
           </div>
         </>
       )}
