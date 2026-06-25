@@ -79,6 +79,7 @@ export default function DateRangePicker({ onRangeChange }: DateRangePickerProps)
               onSelect={handleSelect}
               disabled={{ before: new Date() }}
               numberOfMonths={typeof window !== 'undefined' && window.innerWidth < 640 ? 1 : 2}
+              fixedWeeks
             />
             <div className="drp-sheet-footer">
               <button
