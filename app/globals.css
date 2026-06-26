@@ -2347,6 +2347,7 @@ button.btn-line:disabled {
 .calendly-inline-widget {
   min-width: 320px; height: 680px;
   border: 1px solid var(--line); background: var(--cream);
+  display: block; width: 100%;
 }
 .rl-fallback {
   border: 1px solid var(--line);

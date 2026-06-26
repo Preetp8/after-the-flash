@@ -1,38 +1,16 @@
 'use client'
 
-import { FormEvent, useEffect, useRef, useState } from 'react'
-import Script from 'next/script'
+import { FormEvent, useEffect, useState } from 'react'
 import { trackEvent, trackPixel } from '@/lib/analytics'
 
 const bookingUrl = 'https://calendly.com/aftertheflashmedia/30min'
-const calendlyEmbedUrl = `${bookingUrl}?hide_gdpr_banner=1&primary_color=b26450`
-
-declare global {
-  interface Window {
-    Calendly?: {
-      initInlineWidget: (opts: { url: string; parentElement: HTMLElement }) => void
-    }
-  }
-}
+const calendlyEmbedUrl = `${bookingUrl}?hide_gdpr_banner=1&background_color=f4efe6&text_color=1b1916&primary_color=b26450`
 
 type SubmitState = 'idle' | 'sending' | 'sent' | 'error'
 
 export default function RealtorBooking() {
   const [submitState, setSubmitState] = useState<SubmitState>('idle')
   const [emailError, setEmailError] = useState('')
-  const calRef = useRef<HTMLDivElement>(null)
-  const calInit = useRef(false)
-
-  // Explicitly initialize the inline widget so it reliably renders (and so its
-  // iframe posts booking messages to this page). Guarded against double-init.
-  function initCalendly() {
-    if (calInit.current || !window.Calendly || !calRef.current) return
-    window.Calendly.initInlineWidget({ url: calendlyEmbedUrl, parentElement: calRef.current })
-    calInit.current = true
-  }
-
-  // In case widget.js was already cached/loaded before this mounted.
-  useEffect(() => { initCalendly() }, [])
 
   // Fire a Lead when a discovery call is actually booked in the inline
   // Calendly widget (the iframe posts a calendly.event_scheduled message).
@@ -101,11 +79,6 @@ export default function RealtorBooking() {
 
   return (
     <section className="band rl-book" id="book">
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="lazyOnload"
-        onLoad={initCalendly}
-      />
       <div className="shell">
         <div className="section-head reveal" style={{ maxWidth: '46ch' }}>
           <span className="section-index">Book the Call</span>
@@ -131,7 +104,12 @@ export default function RealtorBooking() {
                 Open in Calendly ↗
               </a>
             </div>
-            <div ref={calRef} className="calendly-inline-widget reveal" />
+            <iframe
+              className="calendly-inline-widget reveal"
+              title="Book a 30-minute discovery call with After the Flash"
+              src={calendlyEmbedUrl}
+              loading="lazy"
+            />
           </div>
 
           <div className="rl-fallback reveal">
