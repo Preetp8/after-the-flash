@@ -36,6 +36,19 @@ export default function Commission() {
 
     const form = event.currentTarget
     const payload = Object.fromEntries(new FormData(form).entries())
+    const name = String(payload.name ?? '')
+    const email = String(payload.email ?? '')
+    const service = String(payload.service ?? '')
+    const location = String(payload.location ?? '')
+    const message = String(payload.message ?? '')
+
+    if (!name || !email || !service || !location || !message) {
+      setSubmitState('error')
+      return
+    }
+
+    trackEvent('inquiry_submitted', { service, budget: String(payload.budget ?? '') })
+    trackPixel('Lead', { content_category: service })
 
     try {
       const res = await fetch('/api/inquire', {
@@ -51,8 +64,6 @@ export default function Commission() {
       setDateFrom('')
       setDateTo('')
       setSubmitState('sent')
-      trackEvent('inquiry_submitted', { service: String(payload.service ?? ''), budget: String(payload.budget ?? '') })
-      trackPixel('Lead', { content_category: String(payload.service ?? '') })
     } catch {
       setSubmitState('error')
     }
