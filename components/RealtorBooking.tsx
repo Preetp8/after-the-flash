@@ -1,26 +1,54 @@
 'use client'
 
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
 import { trackEvent, trackPixel } from '@/lib/analytics'
 
 const bookingUrl = 'https://calendly.com/aftertheflashmedia/30min'
 const calendlyEmbedUrl = `${bookingUrl}?hide_gdpr_banner=1&primary_color=b26450`
 
+declare global {
+  interface Window {
+    Calendly?: {
+      initInlineWidget: (opts: { url: string; parentElement: HTMLElement }) => void
+    }
+  }
+}
+
 type SubmitState = 'idle' | 'sending' | 'sent' | 'error'
 
 export default function RealtorBooking() {
   const [submitState, setSubmitState] = useState<SubmitState>('idle')
   const [emailError, setEmailError] = useState('')
+  const calRef = useRef<HTMLDivElement>(null)
+  const calInit = useRef(false)
+
+  // Explicitly initialize the inline widget so it reliably renders (and so its
+  // iframe posts booking messages to this page). Guarded against double-init.
+  function initCalendly() {
+    if (calInit.current || !window.Calendly || !calRef.current) return
+    window.Calendly.initInlineWidget({ url: calendlyEmbedUrl, parentElement: calRef.current })
+    calInit.current = true
+  }
+
+  // In case widget.js was already cached/loaded before this mounted.
+  useEffect(() => { initCalendly() }, [])
 
   // Fire a Lead when a discovery call is actually booked in the inline
   // Calendly widget (the iframe posts a calendly.event_scheduled message).
+  // Note: bookings completed in a separate Calendly tab cannot be observed
+  // here — only inline-widget completions fire this.
   useEffect(() => {
     function onMessage(e: MessageEvent) {
       if (typeof e.origin !== 'string' || !e.origin.includes('calendly.com')) return
-      if (e.data?.event === 'calendly.event_scheduled') {
+      let data = e.data
+      if (typeof data === 'string') {
+        try { data = JSON.parse(data) } catch { return }
+      }
+      if (data?.event === 'calendly.event_scheduled') {
         trackEvent('calendly_booked', { source: 'realtors_lp' })
         trackPixel('Lead', { content_category: 'Discovery Call' })
+        trackPixel('Schedule', { content_category: 'Discovery Call' })
       }
     }
     window.addEventListener('message', onMessage)
@@ -73,7 +101,11 @@ export default function RealtorBooking() {
 
   return (
     <section className="band rl-book" id="book">
-      <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="lazyOnload" />
+      <Script
+        src="https://assets.calendly.com/assets/external/widget.js"
+        strategy="lazyOnload"
+        onLoad={initCalendly}
+      />
       <div className="shell">
         <div className="section-head reveal" style={{ maxWidth: '46ch' }}>
           <span className="section-index">Book the Call</span>
@@ -99,10 +131,7 @@ export default function RealtorBooking() {
                 Open in Calendly ↗
               </a>
             </div>
-            <div
-              className="calendly-inline-widget reveal"
-              data-url={calendlyEmbedUrl}
-            />
+            <div ref={calRef} className="calendly-inline-widget reveal" />
           </div>
 
           <div className="rl-fallback reveal">
@@ -111,17 +140,16 @@ export default function RealtorBooking() {
                 <p className="form-success-eyebrow">Request received</p>
                 <h3 className="form-success-heading">We&apos;ll reach out within 24 hours.</h3>
                 <p className="form-success-body">
-                  Want to lock a time now? Use the calendar to book your discovery call.
+                  Want to lock a time now? Pick a slot in the calendar to book your
+                  discovery call.
                 </p>
                 <div className="form-success-actions">
                   <a
                     className="rl-cta"
-                    href={bookingUrl}
-                    target="_blank"
-                    rel="noreferrer"
+                    href="#book"
                     onClick={() => trackEvent('calendly_click', { source: 'realtors_success' })}
                   >
-                    Book a Discovery Call <span className="arr" />
+                    Go to the Calendar <span className="arr" />
                   </a>
                 </div>
               </div>

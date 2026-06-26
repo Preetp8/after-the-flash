@@ -47,11 +47,10 @@ export default function RealtorsPage() {
         <div className="rl-hero-content">
           <p className="eyebrow">Birmingham Realtors</p>
           <h1>
-            Your listings deserve better than <span className="accent">phone photos.</span>
+            <span className="accent">Elevate</span> every listing
           </h1>
           <p className="rl-hero-sub">
-            Cinematic video walkthroughs, magazine-quality photography, and social-ready
-            reels — shot across Birmingham and the Southeast. 24–48 hour turnaround.
+            Your listings deserve better than phone photos.
           </p>
           <div className="rl-hero-actions">
             <a className="rl-cta" href="#book">
