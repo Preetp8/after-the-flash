@@ -30,8 +30,13 @@ export async function POST(req: NextRequest) {
       message: clean(body?.message),
     }
 
-    const required = ['name', 'email', 'service', 'message'] as const
+    const required = ['name', 'service', 'message'] as const
     const missing = required.filter(field => !inquiry[field])
+
+    // Need at least one way to reach them. The full forms send email; the
+    // compact realtor quote form sends phone only.
+    const hasContact = Boolean(inquiry.email) || inquiry.phone !== 'Not provided'
+    if (!hasContact) missing.push('contact' as never)
 
     if (missing.length) {
       return NextResponse.json({ ok: false, missing }, { status: 400 })
@@ -47,7 +52,7 @@ export async function POST(req: NextRequest) {
       subject,
       '',
       `Name: ${inquiry.name}`,
-      `Email: ${inquiry.email}`,
+      `Email: ${inquiry.email || 'Not provided'}`,
       `Phone: ${inquiry.phone}`,
       `Shoot type: ${inquiry.service}`,
       `Budget: ${inquiry.budget}`,
@@ -62,7 +67,7 @@ export async function POST(req: NextRequest) {
       <div style="font-family:Arial,sans-serif;line-height:1.6;color:#1b1916">
         <h1 style="font-size:22px;margin:0 0 16px">New website inquiry</h1>
         <p><strong>Name:</strong> ${escapeHtml(inquiry.name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(inquiry.email)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(inquiry.email || 'Not provided')}</p>
         <p><strong>Phone:</strong> ${escapeHtml(inquiry.phone)}</p>
         <p><strong>Shoot type:</strong> ${escapeHtml(inquiry.service)}</p>
         <p><strong>Budget:</strong> ${escapeHtml(inquiry.budget)}</p>
@@ -82,7 +87,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         from: fromEmail,
         to: [businessEmail],
-        reply_to: inquiry.email,
+        ...(inquiry.email ? { reply_to: inquiry.email } : {}),
         subject,
         html,
         text,
@@ -107,7 +112,7 @@ export async function POST(req: NextRequest) {
               { name: 'Name', value: inquiry.name, inline: true },
               { name: 'Service', value: inquiry.service, inline: true },
               { name: 'Budget', value: inquiry.budget, inline: true },
-              { name: 'Email', value: inquiry.email, inline: true },
+              { name: 'Email', value: inquiry.email || 'Not provided', inline: true },
               { name: 'Phone', value: inquiry.phone, inline: true },
               { name: 'Date', value: inquiry.date, inline: true },
               { name: 'Location', value: inquiry.location, inline: true },
