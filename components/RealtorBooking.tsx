@@ -142,7 +142,7 @@ export default function RealtorBooking() {
             Find the right<br />shape for the shoot.
           </h2>
           <p className="lede">
-            Grab a 30-minute discovery call and we&apos;ll talk through the property, your
+            Grab a free 15-minute call and we&apos;ll talk through the property, your
             timeline, and which package fits. Prefer we reach out? Use the short form.
           </p>
         </div>
@@ -150,7 +150,7 @@ export default function RealtorBooking() {
         <div className="rl-book-grid">
           <div className="rl-book-cal">
             <div className="rl-book-head">
-              <span className="booking-label">30-minute consult</span>
+              <span className="booking-label">15-min quote call</span>
               <a
                 href={bookingUrl}
                 target="_blank"
@@ -193,7 +193,7 @@ export default function RealtorBooking() {
               </div>
             ) : (
               <>
-                <h3>Prefer we reach out?</h3>
+                <h3>Want a quote instead? We&apos;ll reply within the hour.</h3>
                 <p>Leave your details and we&apos;ll get back to you within 24 hours.</p>
                 <form onSubmit={handleSubmit} noValidate>
                   <div className="field">
