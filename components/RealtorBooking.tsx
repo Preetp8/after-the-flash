@@ -176,7 +176,7 @@ export default function RealtorBooking() {
             {submitState === 'sent' ? (
               <div className="form-success" style={{ padding: '1rem 0' }}>
                 <p className="form-success-eyebrow">Request received</p>
-                <h3 className="form-success-heading">We&apos;ll reach out within 24 hours.</h3>
+                <h3 className="form-success-heading">We&apos;ll reach out within the hour.</h3>
                 <p className="form-success-body">
                   Want to lock a time now? Pick a slot in the calendar to book your
                   discovery call.
@@ -194,7 +194,7 @@ export default function RealtorBooking() {
             ) : (
               <>
                 <h3>Want a quote instead? We&apos;ll reply within the hour.</h3>
-                <p>Leave your details and we&apos;ll get back to you within 24 hours.</p>
+                <p>Leave your details and we&apos;ll get back to you within the hour.</p>
                 <form onSubmit={handleSubmit} noValidate>
                   <div className="field">
                     <label htmlFor="rl-name">Name</label>
