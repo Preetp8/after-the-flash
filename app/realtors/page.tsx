@@ -3,6 +3,7 @@ import Photo from '@/components/Photo'
 import RealtorBooking from '@/components/RealtorBooking'
 import RealtorGallery from '@/components/RealtorGallery'
 import RealtorLightboxImage from '@/components/RealtorLightboxImage'
+import RealtorQuoteForm from '@/components/RealtorQuoteForm'
 import RealtorStickyCta from '@/components/RealtorStickyCta'
 import ScrollRevealProvider from '@/components/ScrollRevealProvider'
 
@@ -53,13 +54,16 @@ export default function RealtorsPage() {
             Your listings deserve better than phone photos.
           </p>
           <div className="rl-hero-actions">
-            <a className="rl-cta" href="#book">
-              Book a Discovery Call <span className="arr" />
+            <a className="rl-cta" href="#quote">
+              Get a Free Quote <span className="arr" />
             </a>
             <span className="rl-hero-turn">24–48 hr turnaround</span>
           </div>
         </div>
       </section>
+
+      {/* ---------- Top-of-page quote capture (primary conversion) ---------- */}
+      <RealtorQuoteForm />
 
       {/* ---------- Cinematic film (renders when a video ID is set) ---------- */}
       {HERO_VIDEO_ID && (
