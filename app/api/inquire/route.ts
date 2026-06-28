@@ -48,16 +48,22 @@ export async function POST(req: NextRequest) {
     }
 
     const subject = `New ${inquiry.service} inquiry from ${inquiry.name}`
+
+    // Only surface fields that were actually filled in, so the short realtor
+    // quote form (name + phone only) doesn't email a half-empty template.
+    const optional: Array<[string, string]> = []
+    if (inquiry.email) optional.push(['Email', inquiry.email])
+    if (inquiry.phone !== 'Not provided') optional.push(['Phone', inquiry.phone])
+    if (inquiry.budget !== 'Not provided') optional.push(['Budget', inquiry.budget])
+    if (inquiry.date !== 'Not provided') optional.push(['Ideal date', inquiry.date])
+    if (inquiry.location !== 'Not provided') optional.push(['Location', inquiry.location])
+
     const text = [
       subject,
       '',
       `Name: ${inquiry.name}`,
-      `Email: ${inquiry.email || 'Not provided'}`,
-      `Phone: ${inquiry.phone}`,
       `Shoot type: ${inquiry.service}`,
-      `Budget: ${inquiry.budget}`,
-      `Ideal date: ${inquiry.date}`,
-      `Location: ${inquiry.location}`,
+      ...optional.map(([k, v]) => `${k}: ${v}`),
       '',
       'Project notes:',
       inquiry.message,
@@ -67,12 +73,8 @@ export async function POST(req: NextRequest) {
       <div style="font-family:Arial,sans-serif;line-height:1.6;color:#1b1916">
         <h1 style="font-size:22px;margin:0 0 16px">New website inquiry</h1>
         <p><strong>Name:</strong> ${escapeHtml(inquiry.name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(inquiry.email || 'Not provided')}</p>
-        <p><strong>Phone:</strong> ${escapeHtml(inquiry.phone)}</p>
         <p><strong>Shoot type:</strong> ${escapeHtml(inquiry.service)}</p>
-        <p><strong>Budget:</strong> ${escapeHtml(inquiry.budget)}</p>
-        <p><strong>Ideal date:</strong> ${escapeHtml(inquiry.date)}</p>
-        <p><strong>Location:</strong> ${escapeHtml(inquiry.location)}</p>
+        ${optional.map(([k, v]) => `<p><strong>${k}:</strong> ${escapeHtml(v)}</p>`).join('\n        ')}
         <p><strong>Project notes:</strong></p>
         <p>${escapeHtml(inquiry.message).replaceAll('\n', '<br />')}</p>
       </div>
@@ -111,11 +113,7 @@ export async function POST(req: NextRequest) {
             fields: [
               { name: 'Name', value: inquiry.name, inline: true },
               { name: 'Service', value: inquiry.service, inline: true },
-              { name: 'Budget', value: inquiry.budget, inline: true },
-              { name: 'Email', value: inquiry.email || 'Not provided', inline: true },
-              { name: 'Phone', value: inquiry.phone, inline: true },
-              { name: 'Date', value: inquiry.date, inline: true },
-              { name: 'Location', value: inquiry.location, inline: true },
+              ...optional.map(([k, v]) => ({ name: k, value: v, inline: true })),
               { name: 'Notes', value: inquiry.message },
             ],
             timestamp: new Date().toISOString(),
