@@ -2532,6 +2532,8 @@ button.btn-line:disabled {
 
 /* ---------- rail ---------- */
 .vr-rail {
+  /* device width lives on the rail so the rail's own padding maths can use it */
+  --pw: clamp(200px, 19vw, 268px);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(1.5rem, 3.4vw, 3.25rem);
@@ -2541,7 +2543,6 @@ button.btn-line:disabled {
 }
 
 .vr-card {
-  --pw: clamp(200px, 19vw, 268px);
   display: flex;
   flex-direction: column;
   gap: 1.35rem;
@@ -2549,8 +2550,12 @@ button.btn-line:disabled {
   max-width: calc(var(--pw) + 2px);
   transition-delay: calc(var(--i, 0) * 120ms);
 }
-/* centre device sits proud of its neighbours */
-.vr-card:nth-child(2) { margin-top: clamp(-3.25rem, -3vw, -1.5rem); }
+/* Centre device sits proud of its neighbours. The lift goes on the phone,
+   not the card, so all three placards stay on one baseline. */
+.vr-card:nth-child(2) .vr-phone {
+  margin-top: clamp(-3.25rem, -3vw, -1.5rem);
+  margin-bottom: clamp(1.5rem, 3vw, 3.25rem);
+}
 
 .vr-phone {
   position: relative;
@@ -2907,47 +2912,210 @@ button.btn-line:disabled {
 .vr-modal-close:hover { background: var(--terra); border-color: var(--terra); }
 .vr-modal-close:focus-visible { outline: 2px solid var(--terra); outline-offset: 3px; }
 
+/* corner expand chip — replaces the hover play button on touch */
+.vr-expand {
+  position: absolute;
+  right: 11px;
+  bottom: 11px;
+  z-index: 3;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: var(--cream);
+  background: rgba(11, 10, 9, 0.5);
+  border: 1px solid rgba(244, 239, 230, 0.24);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+.vr-expand svg { width: 15px; height: 15px; }
+
+/* ---------- carousel position indicator (mobile only) ---------- */
+.vr-ticks { display: none; }
+.vr-tick {
+  padding: 12px 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  line-height: 0;
+}
+.vr-tick span {
+  display: block;
+  width: 30px;
+  height: 2px;
+  background: rgba(244, 239, 230, 0.24);
+  transition: background .3s ease, width .3s ease;
+}
+.vr-tick.on span { background: var(--terra); width: 44px; }
+.vr-tick:focus-visible { outline: 2px solid var(--terra); outline-offset: 2px; }
+.vr-ticks-count {
+  margin-left: auto;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: rgba(244, 239, 230, 0.45);
+  font-variant-numeric: tabular-nums;
+}
+
 /* ---------- responsive ---------- */
 @media (max-width: 1000px) {
-  .vr-card { --pw: clamp(190px, 26vw, 240px); }
+  .vr-rail { --pw: clamp(190px, 26vw, 240px); }
 }
 
-@media (max-width: 860px) {
+/* short laptops — keep the devices from eating the whole viewport */
+@media (min-width: 761px) and (max-height: 820px) {
+  .vr-rail { --pw: min(clamp(190px, 26vw, 268px), 31svh); }
+}
+
+/* the triptych still fits a portrait tablet, so only phones get the carousel */
+@media (max-width: 760px) {
   .vr-rail {
+    /* svh cap keeps the phone whole in landscape and on short screens */
+    --pw: min(74vw, 300px, 33svh);
     display: flex;
-    gap: 1.5rem;
+    align-items: flex-start;
+    gap: clamp(0.9rem, 4vw, 1.5rem);
     overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
     margin-inline: calc(var(--pad-x) * -1);
-    padding-inline: var(--pad-x);
-    padding-block: 1rem 1.75rem;
+    /* Gutters wide enough that the first and last card can sit dead centre.
+       Percentages resolve against .shell's content box, so the negative
+       margins have to be added back in or card one snaps off-screen left. */
+    padding-inline: max(var(--pad-x), calc((100% + 2 * var(--pad-x) - var(--pw)) / 2));
+    scroll-padding-inline: max(var(--pad-x), calc((100% + 2 * var(--pad-x) - var(--pw)) / 2));
+    padding-block: 0.5rem 1.5rem;
   }
   .vr-rail::-webkit-scrollbar { display: none; }
+
   .vr-card {
-    --pw: min(64vw, 260px);
-    flex: 0 0 auto;
+    flex: 0 0 var(--pw);
     scroll-snap-align: center;
+    scroll-snap-stop: always;
     max-width: none;
-    width: auto;
+    width: var(--pw);
+    gap: 1.1rem;
+    transform-origin: 50% 40%;
+    transition-delay: 0ms;
   }
-  .vr-card:nth-child(2) { margin-top: 0; }
-  .vr-open-btn { opacity: 1; transform: none; }
-}
+  /* Neighbours recede so the centred reel reads as the subject. These do not
+     key off `.in` — a card scrolled out of the rail never intersects the
+     viewport, so it would never receive it and would stay invisible. */
+  .vr-rail .vr-card.reveal {
+    opacity: 0.55;
+    transform: scale(0.94);
+    transition: opacity .45s ease, transform .45s ease;
+  }
+  .vr-rail .vr-card.reveal[data-active="true"] { opacity: 1; transform: none; }
+  .vr-card:nth-child(2) .vr-phone { margin-block: 0; }
 
-@media (max-width: 780px) {
-  .vr-modal-inner {
+  .vr-phone { transition: none; }
+  .vr-card:hover .vr-phone,
+  .vr-card:focus-within .vr-phone { transform: none; }
+  .vr-halo { inset: 4% 0 0; opacity: 0.75; }
+  .vr-shell { padding: 7px; border-radius: 34px; }
+  .vr-screen { border-radius: 27px; }
+  .vr-glare { border-radius: 34px; }
+  .vr-glare::after { display: none; }
+
+  /* bigger touch targets, and the corner chip instead of the centre circle */
+  .vr-open-btn { display: none; }
+  .vr-expand { display: flex; }
+  .vr-sound {
+    top: 38px;
+    right: 8px;
+    width: 40px;
+    height: 40px;
+  }
+  .vr-sound svg { width: 18px; height: 18px; }
+  .vr-runtime { left: 12px; bottom: 13px; }
+
+  .vr-placard { padding-inline: 4px; }
+  .vr-placard .title { font-size: 1.1rem; }
+  .vr-placard .loc { font-size: 11.5px; }
+
+  .vr-ticks {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: -0.25rem;
+  }
+
+  .vr-foot {
     flex-direction: column;
-    gap: 1.25rem;
     align-items: flex-start;
+    gap: 1.1rem;
+    margin-top: 2rem;
   }
-  .vr-modal-stage { height: min(62svh, 560px); }
-  .vr-modal-meta { max-width: none; }
-  .vr-modal-title { font-size: 1.7rem; }
-  .vr-modal-cta { margin-top: 0.4rem; }
+
+  /* pull the first device up toward the fold */
+  .vr .section-head { margin-bottom: 1.6rem; gap: 1rem; }
+  .vr .lede { font-size: 1rem; line-height: 1.62; }
 }
 
-@media (hover: none) {
+/* ---------- expanded player goes edge to edge on phones ---------- */
+@media (max-width: 780px) {
+  .vr-modal {
+    padding: 0;
+    background: #050403;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    align-items: stretch;
+  }
+  .vr-modal-inner {
+    position: relative;
+    flex-direction: column;
+    width: 100%;
+    height: 100svh;
+    gap: 0;
+  }
+  .vr-modal-stage {
+    height: 100%;
+    width: 100%;
+    aspect-ratio: auto;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  /* contain, not cover — these reels have burned-in captions to protect */
+  .vr-modal-stage video { object-fit: contain; }
+
+  .vr-modal-meta {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 2;
+    max-width: none;
+    gap: 0.2rem;
+    padding: calc(1rem + env(safe-area-inset-top)) 4.75rem 1.5rem
+             calc(1.15rem + env(safe-area-inset-left));
+    background: linear-gradient(180deg, rgba(5, 4, 3, 0.86) 0%, rgba(5, 4, 3, 0.5) 62%, transparent 100%);
+    pointer-events: none;
+  }
+  .vr-modal-meta .vr-no { display: none; }
+  .vr-modal-loc { display: none; }
+  .vr-modal-title { font-size: 1.45rem; }
+  .vr-modal-cta {
+    margin-top: 0.55rem;
+    font-size: 11px;
+    pointer-events: auto;
+    align-self: flex-start;
+  }
+  .vr-modal-cta .ln { width: 34px; }
+
+  .vr-modal-close {
+    top: calc(0.85rem + env(safe-area-inset-top));
+    right: calc(0.85rem + env(safe-area-inset-right));
+    z-index: 3;
+    background: rgba(5, 4, 3, 0.55);
+  }
+}
+
+@media (hover: none) and (min-width: 761px) {
   .vr-open-btn { opacity: 1; transform: none; }
 }
 
