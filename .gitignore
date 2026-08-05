@@ -39,3 +39,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .vercel
+
+# video masters (originals — never deployed)
+/_masters
