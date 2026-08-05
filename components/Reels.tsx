@@ -49,6 +49,14 @@ function PlayGlyph() {
   )
 }
 
+function ExpandGlyph() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M14 4h6v6M20 4l-7 7M10 20H4v-6M4 20l7-7" />
+    </svg>
+  )
+}
+
 function SoundGlyph({ on }: { on: boolean }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -128,6 +136,7 @@ function Phone({
   onSound,
   onExpand,
   paused,
+  active,
 }: {
   clip: Clip
   index: number
@@ -135,6 +144,7 @@ function Phone({
   onSound: (index: number | null) => void
   onExpand: () => void
   paused: boolean
+  active: boolean
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [progress, setProgress] = useState(0)
@@ -187,7 +197,13 @@ function Phone({
   }, [])
 
   return (
-    <article className="vr-card reveal" style={{ '--i': index } as CSSProperties & Record<'--i', number>}>
+    <article
+      className="vr-card reveal"
+      /* Must be an attribute, not part of className: ScrollRevealProvider adds
+         `in` with classList.add, and a React className update would wipe it. */
+      data-active={active}
+      style={{ '--i': index } as CSSProperties & Record<'--i', number>}
+    >
       <div className="vr-phone">
         <div className="vr-halo" aria-hidden="true" />
 
@@ -206,7 +222,9 @@ function Phone({
               muted
               loop
               playsInline
-              preload="metadata"
+              /* nothing is fetched until the play effect asks for it; the
+                 poster covers the gap */
+              preload="none"
               onTimeUpdate={onTime}
               aria-label={`${clip.title} — silent preview`}
             />
@@ -238,6 +256,9 @@ function Phone({
 
             <span className="vr-runtime">{clip.duration}</span>
 
+            {/* touch affordance — the whole screen is already the tap target */}
+            <span className="vr-expand" aria-hidden="true"><ExpandGlyph /></span>
+
             <div className="vr-progress" aria-hidden="true">
               <span style={{ width: `${progress}%` }} />
             </div>
@@ -264,6 +285,63 @@ function Phone({
 export default function Reels() {
   const [soundIndex, setSoundIndex] = useState<number | null>(null)
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [carousel, setCarousel] = useState(false)
+  const [active, setActive] = useState(0)
+  const railRef = useRef<HTMLDivElement>(null)
+
+  /* below the breakpoint the rail is a swipeable carousel, not a triptych */
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 760px)')
+    const sync = () => setCarousel(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+
+  /* track which card is centred so only that one plays */
+  useEffect(() => {
+    const rail = railRef.current
+    if (!rail || !carousel) return
+
+    let frame = 0
+    const measure = () => {
+      const mid = rail.scrollLeft + rail.clientWidth / 2
+      let best = 0
+      let bestGap = Infinity
+      Array.from(rail.children).forEach((node, i) => {
+        const card = node as HTMLElement
+        const gap = Math.abs(card.offsetLeft + card.offsetWidth / 2 - mid)
+        if (gap < bestGap) { bestGap = gap; best = i }
+      })
+      setActive(best)
+    }
+    const onScroll = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(measure)
+    }
+
+    measure()
+    rail.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      rail.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(frame)
+    }
+  }, [carousel])
+
+  /* swiping to a new reel drops the sound you turned on for the last one */
+  useEffect(() => {
+    if (carousel) setSoundIndex(null)
+  }, [active, carousel])
+
+  const goTo = useCallback((i: number) => {
+    const rail = railRef.current
+    const card = rail?.children[i] as HTMLElement | undefined
+    if (!rail || !card) return
+    rail.scrollTo({
+      left: card.offsetLeft - (rail.clientWidth - card.offsetWidth) / 2,
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    })
+  }, [])
 
   return (
     <section className="band vr" id="vertical">
@@ -275,11 +353,11 @@ export default function Reels() {
           <h2 className="display">Made for the Feed</h2>
           <p className="lede">
             Nine by sixteen, shot that way from the start — not a landscape edit squeezed into a
-            phone. Three cuts, three jobs: a brand spot, a listing, and a look at how we film.
+            phone. A brand spot, a listing, and a look at how we film.
           </p>
         </div>
 
-        <div className="vr-rail">
+        <div className="vr-rail" ref={railRef}>
           {clips.map((clip, i) => (
             <Phone
               key={clip.slug}
@@ -288,9 +366,28 @@ export default function Reels() {
               soundOn={soundIndex === i}
               onSound={setSoundIndex}
               onExpand={() => setOpenIndex(i)}
-              paused={openIndex !== null}
+              paused={openIndex !== null || (carousel && active !== i)}
+              active={!carousel || active === i}
             />
           ))}
+        </div>
+
+        <div className="vr-ticks" role="group" aria-label="Choose a reel">
+          {clips.map((clip, i) => (
+            <button
+              key={clip.slug}
+              type="button"
+              className={`vr-tick${active === i ? ' on' : ''}`}
+              aria-current={active === i}
+              aria-label={`Show ${clip.title}`}
+              onClick={() => goTo(i)}
+            >
+              <span aria-hidden="true" />
+            </button>
+          ))}
+          <span className="vr-ticks-count" aria-hidden="true">
+            {String(active + 1).padStart(2, '0')} / {String(clips.length).padStart(2, '0')}
+          </span>
         </div>
 
         <div className="vr-foot reveal">
