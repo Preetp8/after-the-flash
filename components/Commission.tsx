@@ -161,6 +161,7 @@ export default function Commission() {
                   </label>
                   <select id="budget" name="budget" defaultValue="">
                     <option value="">Not sure yet</option>
+                    <option>$150–$350</option>
                     <option>$350–$750</option>
                     <option>$750–$1,500</option>
                     <option>$1,500–$3,500</option>

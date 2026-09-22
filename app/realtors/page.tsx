@@ -29,9 +29,9 @@ const work = [
 ]
 
 const pricing = [
-  { no: '01', name: 'Photos', price: 'from $100', desc: 'Magazine-quality stills, color-graded and ready for the MLS and every listing site.' },
-  { no: '02', name: 'Cinematic Video', price: 'from $150', desc: 'A walkthrough that moves — the kind of film that makes a buyer book the showing.' },
-  { no: '03', name: 'Vertical Reel', price: 'from $50', desc: 'Social-ready vertical cut you post straight to Instagram and TikTok.' },
+  { no: '01', name: 'Photos', price: 'from $175', desc: 'Magazine-quality stills, color-graded and ready for the MLS and every listing site.' },
+  { no: '02', name: 'Cinematic Video', price: 'from $200', desc: 'A walkthrough that moves — the kind of film that makes a buyer book the showing.' },
+  { no: '03', name: 'Vertical Reel', price: 'from $125', desc: 'Social-ready vertical cut you post straight to Instagram and TikTok.' },
 ]
 
 export default function RealtorsPage() {
@@ -161,7 +161,7 @@ export default function RealtorsPage() {
             <article className="pricing-card rl-price-featured reveal">
               <div className="pricing-top">
                 <span className="no">04</span>
-                <span className="rl-price-best">Best value · from $250</span>
+                <span className="rl-price-best">Best value · from $425</span>
               </div>
               <h3>Full Bundle</h3>
               <p>Photo + video + reel together — everything a listing needs to lead with.</p>
