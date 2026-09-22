@@ -8,7 +8,7 @@ const packages = [
   {
     no: '02',
     name: 'Real Estate',
-    price: '$350+',
+    price: '$175+',
     desc: 'Interior, exterior, and walkthrough coverage for residential and commercial spaces.',
   },
   {
