@@ -18,10 +18,14 @@ export const metadata: Metadata = {
 const HERO_VIDEO_ID = 'B478-HxW2so'
 
 const work = [
-  { src: '/photos/realestate/Vulcans%20Knee/AV101269-HDR.webp', cap: 'Billiard Room' },
-  { src: '/photos/realestate/Vulcans%20Knee/AV101325-HDR.webp', cap: 'Kitchen' },
-  { src: '/photos/realestate/Vulcans%20Knee/AV101388-HDR.webp', cap: 'Living Room' },
-  { src: '/photos/realestate/Vulcans%20Knee/AV101371-HDR.webp', cap: 'Bedroom' },
+  { src: '/photos/realestate/Vulcans%20Knee/AV101269-HDR.webp', cap: 'Billiard Room · Vulcan’s Knee' },
+  { src: '/photos/realestate/Vulcans%20Knee/AV101325-HDR.webp', cap: 'Kitchen · Vulcan’s Knee' },
+  { src: '/photos/realestate/Vulcans%20Knee/AV101388-HDR.webp', cap: 'Living Room · Vulcan’s Knee' },
+  { src: '/photos/realestate/Vulcans%20Knee/AV101371-HDR.webp', cap: 'Bedroom · Vulcan’s Knee' },
+  { src: '/photos/realestate/1800-Forest-Haven/forest-haven-01.webp', cap: 'Exterior · 1800 Forest Haven' },
+  { src: '/photos/realestate/1800-Forest-Haven/forest-haven-22.webp', cap: 'Living Room · 1800 Forest Haven' },
+  { src: '/photos/realestate/1800-Forest-Haven/forest-haven-36.webp', cap: 'Kitchen · 1800 Forest Haven' },
+  { src: '/photos/realestate/1800-Forest-Haven/forest-haven-66.webp', cap: 'Bonus Room · 1800 Forest Haven' },
 ]
 
 const pricing = [
@@ -124,7 +128,7 @@ export default function RealtorsPage() {
               Recent listings.
             </h2>
             <p className="lede">
-              A few frames from a recent Birmingham listing — shot, lit, and graded the way
+              A few frames from recent Birmingham listings — shot, lit, and graded the way
               your next one will be.
             </p>
           </div>

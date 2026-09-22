@@ -6,9 +6,10 @@ import AlbumCard from './AlbumCard'
 
 // Portrait/landscape alternation per row creates natural visual rhythm
 const DISPLAY_ORDER = [
-  'engagement',  'vulcans-knee',
-  'wedding',     'graduation',
-  'location-1',  'reception',
+  'engagement',    'vulcans-knee',
+  'forest-haven',  'wedding',
+  'graduation',    'location-1',
+  'reception',
 ]
 
 const visible = albums.filter(a => !a.hidden)
