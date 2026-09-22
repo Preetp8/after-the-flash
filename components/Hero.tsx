@@ -19,6 +19,7 @@ const slides: Slide[] = [
   { src: '/photos/vraj/edited/DSC06414.webp',                                 pos: 'center',     scale: 'cover', hideOnMobile: true },
   { src: '/photos/realestate/location%201/virtuallystaged.webp',              pos: 'center',     scale: 'cover', mobilePos: '50% center' },
   { src: '/photos/bridal/edited/PRT00794.webp',                               pos: 'center',     scale: 'cover', mobilePos: '50% center' },
+  { src: '/photos/realestate/1800-Forest-Haven/forest-haven-22.webp',         pos: 'center',     scale: 'cover', mobilePos: '50% center' },
   { src: '/photos/vraj/edited/DSC06421.webp',                                 pos: 'center',     scale: 'cover', mobilePos: '58% center' },
   { src: '/photos/realestate/Vulcans%20Knee/AV101325-HDR.webp',               pos: 'center',     scale: 'cover', mobilePos: '50% center' },
   { src: '/photos/realestate/Vulcans%20Knee/AV101371-HDR.webp',               pos: 'center',     scale: 'cover', mobilePos: '50% center' },
